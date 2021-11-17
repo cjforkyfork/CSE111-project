@@ -1,0 +1,11 @@
+animal_id,animal_type,animal_breed,animal_dob,shelter_key,arrival_cause,status_key,date_enrolled
+1,dog,german sheperd,2010-06-17,2,exchange,2,2021-01-11
+2,dog,pitbull,2015-04-21,5,exchange,2,2021-01-18
+3,dog,pitbull,2012-12-12,5,surrendered,2,2021-02-20
+4,dog,pitbull,2019-09-18,10,stray,3,2021-02-20
+5,dog,chihuahua,2020-11-11,10,stray,4,2021-03-01
+6,cat,bengal,2016-12-18,10,surrendered,1,2021-03-01
+7,cat,sphynx,2010-01-01,10,surrendered,1,2021-03-01
+8,cat,American Shorthair,2015-06-06,10,stray,1,2021-03-01
+9,dog,doberman,2019-02-21,4,stray,2,2021-04-12
+10,dog,golden retriever,2011-11-26,3,stray,2,2021-06-19
