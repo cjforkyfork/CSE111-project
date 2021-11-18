@@ -29,26 +29,26 @@ INSERT INTO city VALUES(10,'Salida');
 -- customer_id  INT PRIMARY KEY NOT NULL,
 --     city_key INT NOT NULL,
 --     FOREIGN KEY(city_key) REFERENCES city(city_key)
-INSERT INTO customer VALUES(1,'Kirby Mckenna');
-INSERT INTO customer VALUES(2,'Sarah-Jayne Larsen');
-INSERT INTO customer VALUES(3,'Izzy Head');
-INSERT INTO customer VALUES(4,'Robert Davis');
-INSERT INTO customer VALUES(5,'Ricky Dunigan');
-INSERT INTO customer VALUES(6,'Robert Cooper');
-INSERT INTO customer VALUES(7,'Darnell Carlton');
-INSERT INTO customer VALUES(8,'Emma Heart');
-INSERT INTO customer VALUES(9,'Alexa Ryan');
-INSERT INTO customer VALUES(10,'Mitchell Sewis');
-INSERT INTO customer VALUES(11,'Aniy Krup');
-INSERT INTO customer VALUES(12,'Mozol Rej');
-INSERT INTO customer VALUES(13,'James Lin');
-INSERT INTO customer VALUES(14,'Alexander Pham');
-INSERT INTO customer VALUES(15,'Ronald Sr');
-INSERT INTO customer VALUES(16,'Shana Young');
-INSERT INTO customer VALUES(17,'Michael Miranda');
-INSERT INTO customer VALUES(18,'Lawman Reed');
-INSERT INTO customer VALUES(19,'Cuthbert Mon');
-INSERT INTO customer VALUES(20,'Ryan Beagle');
+INSERT INTO customer VALUES(1,'Kirby Mckenna',1);
+INSERT INTO customer VALUES(2,'Sarah-Jayne Larsen',2);
+INSERT INTO customer VALUES(3,'Izzy Head',3);
+INSERT INTO customer VALUES(4,'Robert Davis',4);
+INSERT INTO customer VALUES(5,'Ricky Dunigan',5);
+INSERT INTO customer VALUES(6,'Robert Cooper',6);
+INSERT INTO customer VALUES(7,'Darnell Carlton',7);
+INSERT INTO customer VALUES(8,'Emma Heart',8);
+INSERT INTO customer VALUES(9,'Alexa Ryan',9);
+INSERT INTO customer VALUES(10,'Mitchell Sewis',10);
+INSERT INTO customer VALUES(11,'Aniy Krup',10);
+INSERT INTO customer VALUES(12,'Mozol Rej',9);
+INSERT INTO customer VALUES(13,'James Lin',8);
+INSERT INTO customer VALUES(14,'Alexander Pham',7);
+INSERT INTO customer VALUES(15,'Ronald Sr',6);
+INSERT INTO customer VALUES(16,'Shana Young',5);
+INSERT INTO customer VALUES(17,'Michael Miranda',4);
+INSERT INTO customer VALUES(18,'Lawman Reed',3);
+INSERT INTO customer VALUES(19,'Cuthbert Mon',2);
+INSERT INTO customer VALUES(20,'Ryan Beagle',1);
 
 
 --     customer_id  INT PRIMARY KEY NOT NULL,

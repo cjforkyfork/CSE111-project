@@ -64,6 +64,7 @@ CREATE TABLE customer_community (
 
 CREATE TABLE customer (
     customer_id  INT PRIMARY KEY NOT NULL,
+    customer_name char(25) NOT NULL,
     city_key INT NOT NULL,
     FOREIGN KEY(city_key) REFERENCES city(city_key)
 );
