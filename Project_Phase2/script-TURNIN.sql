@@ -49,13 +49,13 @@ FROM animal
 WHERE status_comment = 'euthanized'
 
 -- 6. How many workers work in each shelter
-SELECT COUNT(shelter_assistant.assistant_id), shelter.shelter_name
+SELECT shelter.shelter_name, COUNT(shelter_assistant.assistant_id) as 'Assistant Count'
 FROM shelter
     INNER JOIN shelter_assistant ON shelter_assistant.shelter_key = shelter.shelter_key
 GROUP BY shelter.shelter_name
 
 -- 7. What's the average amount of animals do each workers assist?
-SELECT AVG(total)
+SELECT AVG(total) as 'Average Animals Assisted'
 FROM
     (SELECT COUNT(animals_assistant.animal_id) as total
     FROM shelter_assistant
