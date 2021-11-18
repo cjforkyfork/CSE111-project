@@ -43,7 +43,7 @@ WHERE cust = Customer
 GROUP BY TypeA
 ORDER BY TypeA
 
--- 2. What animals haven't been visited yet, and doesn't have a req
+-- 2. What animals haven't been visited yet, and doesn't have a request visit pending?
 SELECT animal.animal_id as 'Animal ID'
 FROM animal
 WHERE animal.animal_id NOT IN
@@ -66,3 +66,25 @@ FROM customer_community
     LEFT OUTER JOIN shelter ON shelter.shelter_key = customer_community.shelter_key
     LEFT OUTER JOIN donations ON donations.customer_id = customer_community.customer_id
 GROUP BY shelter.shelter_name
+
+-- 5. What animal(s) are euthanized?
+SELECT animal.animal_id as 'Animal ID', status.status_comment as Status
+FROM animal
+    INNER JOIN status ON status.status_key = animal.status_key
+WHERE status_comment = 'euthanized'
+
+-- 6. How many workers work in each shelter
+SELECT COUNT(shelter_assistant.assistant_id), shelter.shelter_name
+FROM shelter
+    INNER JOIN shelter_assistant ON shelter_assistant.shelter_key = shelter.shelter_key
+GROUP BY shelter.shelter_name
+
+-- 7. What's the average amount of animals does each worker assist?
+SELECT AVG(total)
+FROM
+    (SELECT COUNT(animals_assistant.animal_id) as total
+    FROM shelter_assistant
+        LEFT OUTER JOIN animals_assistant ON animals_assistant.assistant_id = shelter_assistant.assistant_id
+    GROUP BY shelter_assistant.assistant_id)
+
+-- 8. 
