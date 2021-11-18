@@ -70,6 +70,7 @@ CREATE TABLE customer (
 );
 
 CREATE TABLE requests_visits (
+    request_id INT NOT NULL,
     customer_id    INT NOT NULL,
     animal_id    INT NOT NULL,
     FOREIGN KEY(animal_id) REFERENCES shelter(animal_id)

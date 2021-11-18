@@ -8,3 +8,4 @@ DROP TABLE shelter;
 DROP TABLE shelter_assistant;
 DROP TABLE status;
 DROP TABLE visits;
+DROP TABLE requests_visits;

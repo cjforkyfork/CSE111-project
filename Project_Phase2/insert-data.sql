@@ -95,7 +95,14 @@ INSERT INTO donations VALUES(11,3,14,7000);
 INSERT INTO donations VALUES(12,5,5,7100);
 
 
-INSERT INTO requests_visits VALUES(5,2);
-INSERT INTO requests_visits VALUES(4,10);
+INSERT INTO requests_visits VALUES(1,5,2);
+INSERT INTO requests_visits VALUES(2,4,10);
+
+-- TWO NEW INSERT STATEMENTS WHICH ARENT RUN YET
+
+INSERT INTO donations VALUES(13,10,16,500);
+INSERT INTO requests_visits VALUES(8,5);
+
+
 
 
