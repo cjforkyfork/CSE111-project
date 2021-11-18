@@ -1,5 +1,10 @@
-delete from animal;
-delete from animals_assistant;
-delete from shelter_assistant;
-delete from shelter;
-delete from status;
+DROP TABLE animal;
+DROP TABLE animals_assistant;
+DROP TABLE city;
+DROP TABLE customer;
+DROP TABLE customer_community;
+DROP TABLE donations;
+DROP TABLE shelter;
+DROP TABLE shelter_assistant;
+DROP TABLE status;
+DROP TABLE visits;
