@@ -93,16 +93,30 @@ INSERT INTO donations VALUES(9,4,15,3000);
 INSERT INTO donations VALUES(10,5,5,3000);
 INSERT INTO donations VALUES(11,3,14,7000);
 INSERT INTO donations VALUES(12,5,5,7100);
+INSERT INTO donations VALUES(13,6,12,200);
+INSERT INTO donations VALUES(14,8,7,500);
 
 
 INSERT INTO requests_visits VALUES(1,5,2);
 INSERT INTO requests_visits VALUES(2,4,10);
+INSERT INTO requests_visits VALUES(3,5,7);
+INSERT INTO requests_visits VALUES(4,7,9);
+INSERT INTO requests_visits VALUES(5,6,4);
+INSERT INTO requests_visits VALUES(6,2,3);
+INSERT INTO requests_visits VALUES(7,1,2);
+INSERT INTO requests_visits VALUES(8,3,8);
+INSERT INTO requests_visits VALUES(9,5,9);
+INSERT INTO requests_visits VALUES(10,1,2);
+INSERT INTO requests_visits VALUES(11,5,2);
+INSERT INTO requests_visits VALUES(12,5,8);
 
 -- TWO NEW INSERT STATEMENTS WHICH ARENT RUN YET
 
+-- 1. A new donation has been made.
 INSERT INTO donations VALUES(13,10,16,500);
-INSERT INTO requests_visits VALUES(8,5);
 
+-- 2. An adoptee requested a visit with an animal
+INSERT INTO requests_visits VALUES(8,5,6);
 
-
-
+-- 3. A visit has taken place, from a pending requested visit
+INSERT INTO visits VALUES(6,3,6,10,'Very likeable');
