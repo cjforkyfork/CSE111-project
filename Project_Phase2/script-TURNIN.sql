@@ -1,4 +1,5 @@
--- Update Data Modification Statements --
+-- SQL Queries --
+
 -- 1. What adoptees donated the most money and visited an animal at lease once? Don't include animals that haven't been visited yet.
 SELECT cust, MAX(Donations), TypeA as 'Animal ID'
 FROM 
