@@ -109,14 +109,3 @@ INSERT INTO requests_visits VALUES(9,5,9);
 INSERT INTO requests_visits VALUES(10,1,2);
 INSERT INTO requests_visits VALUES(11,5,2);
 INSERT INTO requests_visits VALUES(12,5,8);
-
--- TWO NEW INSERT STATEMENTS WHICH ARENT RUN YET
-
--- 1. A new donation has been made.
-INSERT INTO donations VALUES(13,10,16,500);
-
--- 2. An adoptee requested a visit with an animal
-INSERT INTO requests_visits VALUES(8,5,6);
-
--- 3. A visit has taken place, from a pending requested visit
-INSERT INTO visits VALUES(6,3,6,10,'Very likeable');
