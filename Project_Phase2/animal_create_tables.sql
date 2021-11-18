@@ -67,3 +67,10 @@ CREATE TABLE customer (
     city_key INT NOT NULL,
     FOREIGN KEY(city_key) REFERENCES city(city_key)
 );
+
+CREATE TABLE requests_visits (
+    customer_id    INT NOT NULL,
+    animal_id    INT NOT NULL,
+    FOREIGN KEY(animal_id) REFERENCES shelter(animal_id)
+    FOREIGN KEY(customer_id) REFERENCES customer(customer_id)
+);
