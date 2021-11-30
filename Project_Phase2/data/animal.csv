@@ -1,11 +1,102 @@
 animal_id,animal_type,animal_breed,animal_dob,shelter_key,arrival_cause,status_key,date_enrolled
-1,dog,german sheperd,2010-06-17,2,exchange,2,2021-01-11
-2,dog,pitbull,2015-04-21,5,exchange,2,2021-01-18
-3,dog,pitbull,2012-12-12,5,surrendered,2,2021-02-20
-4,dog,pitbull,2019-09-18,10,stray,3,2021-02-20
-5,dog,chihuahua,2020-11-11,10,stray,4,2021-03-01
-6,cat,bengal,2016-12-18,10,surrendered,1,2021-03-01
-7,cat,sphynx,2010-01-01,10,surrendered,1,2021-03-01
-8,cat,American Shorthair,2015-06-06,10,stray,1,2021-03-01
-9,dog,doberman,2019-02-21,4,stray,2,2021-04-12
-10,dog,golden retriever,2011-11-26,3,stray,2,2021-06-19
+1,Dog,English Springer Spaniel,2010-06-17,1,exchange,2,2021-01-11
+2,Dog,Basenji Mix,2015-04-21,1,exchange,2,2021-01-18
+3,Cat,Domestic Shorthair Mix,2012-12-12,1,surrendered,2,2021-02-20
+4,Dog,Doberman Pinsch/Australian Cattle Dog,2019-09-18,1,stray,3,2021-02-20
+5,Dog,Labrador Retriever Mix,2020-11-11,1,stray,4,2021-03-01
+6,Dog,Labrador Retriever Mix,2016-12-18,1,surrendered,1,2021-03-01
+7,Cat,Domestic Shorthair Mix,2010-01-01,1,surrendered,1,2021-03-01
+8,Dog,Chihuahua Shorthair,2015-06-06,1,stray,1,2021-03-01
+9,Dog,Pit Bull,2019-02-21,1,stray,2,2021-04-12
+10,Dog,Chihuahua Shorthair,2011-11-26,1,stray,2,2021-06-19
+11,Cat,Domestic Shorthair Mix,2017-02-04,1,exchange,1,2021-01-01
+12,Cat,Domestic Shorthair Mix,2013-11-10,1,exchange,2,2021-01-02
+13,Cat,Domestic Shorthair Mix,2015-07-15,1,surrendered,3,2021-01-03
+14,Cat,Domestic Shorthair Mix,2016-10-08,1,exchange,4,2021-01-04
+15,Dog,Australian Cattle Dog/Labrador Retriever,2015-03-04,1,exchange,4,2021-01-05
+16,Dog,Parson Russell Terrier Mix,2015-09-06,1,surrendered,3,2021-01-06
+17,Cat,Domestic Shorthair Mix,2015-07-20,1,exchange,2,2021-01-07
+18,Dog,Maltese Mix,2014-06-25,1,exchange,1,2021-01-08
+19,Dog,Dachshund Mix,2017-05-15,1,surrendered,2,2021-01-09
+20,Cat,Domestic Shorthair Mix,2016-03-24,1,stray,1,2021-01-10
+21,Dog,Labrador Retriever Mix,2015-02-12,2,stray,1,2021-01-11
+22,Dog,Dachshund Mix,2017-10-09,2,surrendered,2,2021-01-12
+23,Cat,Domestic Shorthair Mix,2013-11-08,2,surrendered,2,2021-01-13
+24,Dog,Labrador Retriever Mix,2015-06-29,2,stray,2,2021-01-14
+25,Cat,Domestic Shorthair Mix,2016-08-14,2,stray,2,2021-01-15
+26,Cat,Domestic Shorthair Mix,2017-05-14,2,surrendered,2,2021-01-16
+27,Cat,Domestic Shorthair Mix,2016-05-26,2,surrendered,2,2021-01-17
+28,Dog,Pit Bull Mix,2015-05-05,2,stray,2,2021-01-18
+29,Dog,Tibetan Spaniel Mix,2015-12-07,2,stray,2,2021-01-19
+30,Dog,Miniature Pinscher Mix,2016-04-16,2,surrendered,2,2021-01-20
+31,Cat,Domestic Shorthair Mix,2015-05-16,2,surrendered,1,2021-01-21
+32,Dog,Chihuahua Shorthair Mix,2017-10-11,2,stray,1,2021-01-22
+33,Cat,Domestic Shorthair Mix,2015-05-19,2,stray,3,2021-01-23
+34,Cat,Domestic Shorthair Mix,2017-03-13,2,surrendered,4,2021-01-24
+35,Cat,Domestic Longhair Mix,2017-04-25,2,surrendered,3,2021-01-25
+36,Cat,Domestic Shorthair Mix,2016-10-11,2,stray,3,2021-01-26
+37,Cat,Domestic Shorthair Mix,2017-07-29,2,stray,4,2021-01-27
+38,Dog,Dachshund/Chihuahua Shorthair,2015-03-30,2,surrendered,4,2021-01-28
+39,Cat,Domestic Shorthair Mix,2015-10-25,2,surrendered,2,2021-01-29
+40,Cat,Domestic Shorthair Mix,2016-03-04,2,stray,2,2021-01-30
+41,Cat,Domestic Longhair Mix,2017-07-16,3,stray,2,2021-01-31
+42,Cat,American Shorthair Mix,2015-10-14,3,surrendered,1,2021-02-01
+43,Dog,German Shepherd/Chow Chow,2014-05-03,3,surrendered,1,2021-02-02
+44,Dog,Miniature Schnauzer Mix,2017-09-12,3,exchange,1,2021-02-03
+45,Cat,Domestic Shorthair Mix,2015-04-04,3,exchange,2,2021-02-04
+46,Cat,Domestic Shorthair Mix,2017-04-27,3,surrendered,2,2021-02-05
+47,Cat,Domestic Shorthair,2014-05-13,3,stray,2,2021-02-06
+48,Cat,Domestic Shorthair Mix,2015-03-06,3,stray,2,2021-02-07
+49,Dog,Labrador Retriever Mix,2015-06-09,3,surrendered,2,2021-02-08
+50,Cat,Domestic Shorthair Mix,2015-01-30,3,surrendered,2,2021-02-09
+51,Cat,Domestic Shorthair Mix,2016-12-14,3,exchange,2,2021-02-10
+52,Dog,Labrador Retriever Mix,2018-03-06,3,exchange,2,2021-02-11
+53,Cat,Domestic Shorthair Mix,2017-05-16,3,surrendered,3,2021-02-12
+54,Dog,Great Pyrenees Mix,2016-08-23,3,stray,3,2021-02-13
+55,Dog,German Shepherd Mix,2016-05-05,3,stray,3,2021-02-14
+56,Cat,Domestic Shorthair Mix,2014-09-28,3,surrendered,4,2021-02-15
+57,Cat,Domestic Shorthair Mix,2015-08-29,3,surrendered,4,2021-02-16
+58,Dog,Feist/Beagle,2014-07-16,3,stray,4,2021-02-17
+59,Cat,Domestic Shorthair Mix,2015-10-23,3,stray,2,2021-02-18
+60,Dog,Pit Bull Mix,2014-05-14,3,stray,2,2021-02-19
+61,Dog,Labrador Retriever Mix,2016-04-16,4,stray,2,2021-02-20
+62,Cat,Domestic Shorthair Mix,2013-12-01,4,stray,2,2021-02-21
+63,Dog,Rottweiler Mix,2014-04-07,4,stray,2,2021-02-22
+64,Dog,Chihuahua Shorthair Mix,2014-05-09,4,stray,2,2021-02-23
+65,Cat,Domestic Medium Hair,2016-01-11,4,stray,1,2021-02-24
+66,Dog,Chihuahua Shorthair Mix,2016-10-16,4,stray,1,2021-02-25
+67,Cat,Domestic Shorthair Mix,2017-05-27,4,stray,1,2021-02-26
+68,Cat,Domestic Medium Hair Mix,2015-07-20,4,stray,1,2021-02-27
+69,Dog,Italian Greyhound Mix,2015-02-03,4,stray,2,2021-02-28
+70,Dog,Chihuahua Shorthair/Jack Russell Terrier,2015-01-16,4,stray,2,2021-03-01
+71,Cat,Domestic Shorthair Mix,2016-10-20,4,stray,2,2021-03-02
+72,Cat,Domestic Shorthair Mix,2014-10-07,4,stray,2,2021-03-03
+73,Cat,Domestic Shorthair Mix,2016-06-25,4,stray,2,2021-03-04
+74,Cat,Domestic Shorthair Mix,2016-11-10,4,stray,2,2021-03-05
+75,Dog,Labrador Retriever Mix,2014-03-22,4,stray,2,2021-03-06
+76,Cat,Domestic Shorthair Mix,2015-07-17,4,surrendered,2,2021-03-07
+77,Cat,Domestic Shorthair Mix,2014-09-10,4,surrendered,2,2021-03-08
+78,Dog,Bull Terrier Mix,2016-03-09,4,stray,2,2021-03-09
+79,Cat,Domestic Shorthair Mix,2016-04-20,4,stray,2,2021-03-10
+80,Cat,Domestic Shorthair Mix,2016-10-11,4,stray,2,2021-03-11
+81,Dog,Boston Terrier/Pembroke Welsh Corgi,2016-06-19,5,exchange,2,2021-03-12
+82,Dog,Labrador Retriever Mix,2016-07-27,5,exchange,3,2021-03-13
+83,Dog,Black Mouth Cur Mix,2014-10-04,5,surrendered,4,2021-03-14
+84,Cat,Domestic Shorthair Mix,2015-03-23,5,surrendered,4,2021-03-15
+85,Dog,German Shepherd/Great Pyrenees,2017-03-02,5,stray,4,2021-03-16
+86,Cat,Domestic Shorthair Mix,2015-08-07,5,stray,2,2021-03-17
+87,Dog,Pit Bull Mix,2014-09-23,5,stray,2,2021-03-18
+88,Cat,Domestic Shorthair Mix,2016-12-02,5,exchange,2,2021-03-19
+89,Cat,Domestic Shorthair Mix,2014-01-05,5,exchange,1,2021-03-20
+90,Cat,Domestic Shorthair Mix,2017-04-30,5,surrendered,1,2021-03-21
+91,Dog,Cairn Terrier Mix,2016-08-27,5,surrendered,1,2021-03-22
+92,Dog,Cairn Terrier Mix,2013-10-01,5,stray,2,2021-03-23
+93,Cat,Domestic Medium Hair Mix,2016-12-21,5,stray,1,2021-03-24
+94,Dog,Labrador Retriever Mix,2016-02-07,5,stray,1,2021-03-25
+95,Dog,Chihuahua Shorthair Mix,2016-12-19,5,exchange,1,2021-03-26
+96,Cat,Domestic Shorthair Mix,2015-10-12,5,exchange,1,2021-03-27
+97,Dog,German Shepherd Mix,2016-08-14,5,surrendered,1,2021-03-28
+98,Cat,Domestic Shorthair Mix,2013-11-11,5,surrendered,1,2021-03-29
+99,Cat,Domestic Shorthair Mix,2012-11-11,5,stray,1,2021-03-30
+100,Dog,Pit Bull Mix,2014-03-25,5,stray,2,2021-04-01
+101,Cat,Domestic Shorthair Mix,2014-03-25,5,surrendered,2,2021-04-02
