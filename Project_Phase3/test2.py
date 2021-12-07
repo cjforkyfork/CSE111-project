@@ -112,6 +112,7 @@ def myanimals():
     if request.method == "GET":
         connection = sqlite3.connect(currentdirectory + "/animals.db")
         animals = []
+        json_data = json.loads("{}")
         query = '''
         SELECT animal_id, animal_type, animal_breed, animal_dob, arrival_cause, status_comment, date_enrolled
         FROM animal
@@ -124,7 +125,16 @@ def myanimals():
 
         for i in rows:
             animals.append([i[0], i[1], i[2], i[3], i[4], i[5], i[6]])
-        json_data = json.loads("{}")
+        
+        for i in animals:
+            json_data.update({i[0]: {"animal_id": i[0],
+                                    "animal_type": i[1], 
+                                    "animal_breed": i[2], 
+                                    "animal_dob": i[3],
+                                    "arrival_cause": i[4],
+                                    "status_comment": i[5],
+                                    "date_enrolled": i[6]}
+                                    })
         return json_data
         
 
