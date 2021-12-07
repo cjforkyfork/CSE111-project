@@ -117,14 +117,22 @@ def myanimals():
         connection = sqlite3.connect(currentdirectory + "/animals.db")
         animals = []
         json_data = json.loads("{}")
+
         query = '''
-        SELECT animal_id, animal_type, animal_breed, animal_dob, arrival_cause, status_comment, date_enrolled
+        SELECT animal.animal_id, animal_type, animal_breed, animal_dob, arrival_cause, status_comment, date_enrolled
         FROM animal
-        INNER JOIN status ON status.status_key = animal.status_key
+            INNER JOIN status ON status.status_key = animal.status_key
+            INNER JOIN animals_assistant ON animals_assistant.animal_id = animal.animal_id
+            INNER JOIN shelter_assistant ON shelter_assistant.assistant_id = animals_assistant.assistant_id
+        WHERE shelter_assistant.assistant_id = ?
         '''
+        arg = session['user_id']
+        # print("xxxxxxxxxx")
+        # print(arg)
+        # print("xxxxxxxxxx")
 
         cursor = connection.cursor()
-        cursor.execute(query)
+        cursor.execute(query, arg)
         rows = cursor.fetchall()
 
         for i in rows:
@@ -319,17 +327,12 @@ def before_request():
             FROM shelter_assistant 
             WHERE assistant_id = ?
             '''
-            
+
             args = session['user_id']
-            # print('before request')
-            # print(session['user_id'])
-            # print(args)
             connection = sqlite3.connect(currentdirectory + "/animals.db")
             cursor = connection.cursor()
             cursor.execute(query,args)
             rows = cursor.fetchall()
-            if query is None:
-                query = '4'
             g.user = rows[0][1]
 
 @app.route('/customer')
