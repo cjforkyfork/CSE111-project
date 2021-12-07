@@ -1,0 +1,16 @@
+body{
+    padding-top: 1rem;
+}
+
+.logout{
+    float: right;
+}
+
+.header{
+    text-align: center;
+    padding-top: 3.33rem;
+}
+
+.table-header{
+    text-align: center;
+}

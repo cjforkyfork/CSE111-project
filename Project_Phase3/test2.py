@@ -107,6 +107,28 @@ def donate():
         connection.commit()
         return ('', 204)
 
+@app.route("/assistant/myanimals",methods = ["GET"])
+def myanimals():
+    if request.method == "GET":
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        animals = []
+        query = '''
+        SELECT animal_id, animal_type, animal_breed, animal_dob, arrival_cause, status_comment, date_enrolled
+        FROM animal
+        INNER JOIN status ON status.status_key = animal.status_key
+        '''
+
+        cursor = connection.cursor()
+        cursor.execute(query)
+        rows = cursor.fetchall()
+
+        for i in rows:
+            animals.append([i[0], i[1], i[2], i[3], i[4], i[5], i[6]])
+        json_data = json.loads("{}")
+        return json_data
+        
+
+
 class currDogs(Resource):
     def get(self):
         if 'user_id' in session:
@@ -124,7 +146,7 @@ class currDogs(Resource):
             cursor.execute(query_animal,args)
             rows = cursor.fetchall()
             list_animals = []
-            # retrieve all classes for the given student
+            # retrieves the information
             for cls in rows:
                 list_animals.append([cls[0], cls[1], cls[2],cls[3],cls[4],cls[5],cls[6],cls[7]])
             json_data = json.loads("{}")
@@ -277,6 +299,10 @@ def customer_logged():
     if not g.user:
         return redirect(url_for('login_post'))
     return render_template('customer.html')
+
+@app.route('/assistant')
+def assistant_logged():
+    return render_template('assistant.html')
 
 @app.route("/")
 def main():
