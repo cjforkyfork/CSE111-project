@@ -1,0 +1,87 @@
+
+<html>
+
+    <link rel="stylesheet" href="static\styles\styles.css">
+    <script src="static\js\script.js"></script>
+<body>
+
+<h1>Welcome {{g.user}}</h1>
+<a href="/my-link/">Logout</a> &nbsp;
+<div class="row">
+  <div class="column">
+    <table>
+      <tr>
+        <th>Check Status</th>
+      </tr>
+      <tr>
+        <td>
+            <label for="fname">Enter Animal ID:</label>
+            <input type="text" id="DisplayOutcome" name="DisplayOutcome"><br><br>
+            <input type="submit" name = "submit" value="Submit" onclick="getOutcome()">
+        </td>
+        <tr><br></tr>
+          <tbody id="Outcomebody"></tbody>
+      </tr>
+    </table>
+  </div>
+
+  <div class="column">
+    <table>
+        <tr>
+          <th>Make Donation</th>
+        </tr>
+        <tr>
+          <td>
+            <label for="fname">Enter Amount:</label>
+            <input type="text" id="Amount" name="Amount"><br><br>
+            <input type="submit" value="Submit" onclick="makeDonation()">
+          </td>
+          <tbody id="Delbody"></tbody>
+        </tr>
+        <tr><br></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+  <div class = "center">
+    <table>
+        <tr>
+          <th>Request Visit</th>
+        </tr>
+        <tr>
+          <td>
+            <label for="fname">Enter Animal ID:</label>
+            <input type="text" id="Newname" name="Newname"><br><br>
+            <!-- <label for="fname">Enter Student Grade:</label>
+            <input type="text" id="Newgrade" name="Newgrade"><br><br> -->
+            <input type="submit" value="Submit" onclick="requestVisit()">
+          </td>
+          <tbody id="Addedbody"></tbody>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<table class = "tablefetch">
+  <!-- <body>
+    <input type="button" onclick="loadNames()" value="Get Student Grades" />
+</body> --><body>
+    <input type="button" onclick="currDogs()" value="Get List Of Dogs" />
+    <input type="button" onclick="currCats()" value="Get List Of Cats" />
+    <input type="button" onclick="underFive()" value="Under Five Years Old" />
+    <input type="button" onclick="overFive()" value="Over Five Years Old" />
+  </body>
+<p id="currentClasses"></p>
+</table>
+
+
+<script>
+    window.onload = function() {
+        currDogs();
+    };
+</script>
+</html>
