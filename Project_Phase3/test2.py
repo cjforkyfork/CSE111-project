@@ -15,6 +15,10 @@ app.secret_key = 'TEAM111'
 
 api = Api(app)
 
+# Check variables for customer/assistant
+checkS = False
+checkA = False
+
 @app.route("/customer/getOutcome/<string:name>",methods = ["GET"])
 def out(name):
     if request.method == "GET":
@@ -287,22 +291,46 @@ def before_request():
     g.user = None
     # session.pop('user_id', None)
     if 'user_id' in session:
-        query = '''
-        SELECT customer_id, customer_name
-        FROM customer 
-        WHERE customer_id = ?
-        '''
-        args = session['user_id']
-        print('before request')
-        print(session['user_id'])
-        print(args)
-        connection = sqlite3.connect(currentdirectory + "/animals.db")
-        cursor = connection.cursor()
-        cursor.execute(query,args)
-        rows = cursor.fetchall()
-        if query is None:
-            query = '4'
-        g.user = rows[0][1]
+        # Checking if global variable changed correctly
+        # print("--------")
+        # print(checkA)
+        # print("--------")
+
+        if checkS:
+            query = '''
+            SELECT customer_id, customer_name
+            FROM customer 
+            WHERE customer_id = ?
+            '''
+            args = session['user_id']
+            # print('before request')
+            # print(session['user_id'])
+            # print(args)
+            connection = sqlite3.connect(currentdirectory + "/animals.db")
+            cursor = connection.cursor()
+            cursor.execute(query,args)
+            rows = cursor.fetchall()
+            if query is None:
+                query = '4'
+            g.user = rows[0][1]
+        elif checkA:
+            query = '''
+            SELECT assistant_id, assistant_name
+            FROM shelter_assistant 
+            WHERE assistant_id = ?
+            '''
+            
+            args = session['user_id']
+            # print('before request')
+            # print(session['user_id'])
+            # print(args)
+            connection = sqlite3.connect(currentdirectory + "/animals.db")
+            cursor = connection.cursor()
+            cursor.execute(query,args)
+            rows = cursor.fetchall()
+            if query is None:
+                query = '4'
+            g.user = rows[0][1]
 
 @app.route('/customer')
 def customer_logged():
@@ -312,6 +340,8 @@ def customer_logged():
 
 @app.route('/assistant')
 def assistant_logged():
+    if not g.user:
+        return redirect(url_for('login_post'))
     return render_template('assistant.html')
 
 @app.route("/")
@@ -327,31 +357,28 @@ def login_post():
 
         connection = sqlite3.connect(currentdirectory + "/animals.db")
         cursor = connection.cursor()
+
         query = '''
         SELECT customer_id, customer_name
         FROM customer 
         WHERE customer_id = ?
         AND customer_name = ?
         '''
+
         c_key = str(username)
         c_name = str(password)
-        
         args = [c_key,c_name]
 
         cursor.execute(query,args)
         rows = cursor.fetchall()
-        
+
         print(c_key)
         print(c_name)
         print(rows)
         # print(session['user_id'])
-        if not rows:
-                return redirect(url_for('login_post'))
-        else:
-            session['user_id'] = c_key
-            # connection.close()
-            g.user = rows[0][1]
-            return redirect(url_for('customer_logged'))
+
+        cursor.execute(query,args)
+        rows = cursor.fetchall()
 
         query2 = '''
         SELECT assistant_id, assistant_name
@@ -359,16 +386,38 @@ def login_post():
         WHERE assistant_id = ?
         AND assistant_name = ?
         '''
+
         a_key = str(username)
         a_name = str(password)
-
         args2 = [a_key,a_name]
-        cursor.execute(query2,args2)
+
+        cursor.execute(query2, args2)
         rows2 = cursor.fetchall()
-        if rows2[0][0] == None and rows2[0][1] == None:
-                print("There are no results for this query")
-        else:
-            print("TRUE")
+        
+        if rows:
+            # Checks if the user is a customer
+            global checkS
+            checkS = True
+            
+            session['user_id'] = c_key
+            # connection.close()
+            g.user = rows[0][1]
+            return redirect(url_for('customer_logged'))
+        elif rows2:
+            # Checks if the user is a assistant
+            global checkA
+            print("Before:")
+            print(checkA)
+            checkA = True
+            print("After:")
+            print(checkA)
+
+            session['user_id'] = a_key
+            g.user = rows2[0][1]
+            return redirect(url_for('assistant_logged'))
+        elif not rows:
+                return redirect(url_for('login_post'))
+
     return render_template('login.html')
 
 @app.route('/my-link/')

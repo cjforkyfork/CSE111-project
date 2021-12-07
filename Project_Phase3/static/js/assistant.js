@@ -1,3 +1,7 @@
+window.onload = function(){
+    myAnimals();
+}
+
 function myAnimals(){
     const xhttp = new XMLHttpRequest();
     const method = "GET";
@@ -8,7 +12,19 @@ function myAnimals(){
     xhttp.send();
     xhttp.onload = function(){
         const data = JSON.parse(this.responseText);
-        output = ""
+        output = `<table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Animal ID</th>
+                            <th>Animal Species</th>
+                            <th>Animal Breed</th>
+                            <th>Date of Birth</th>
+                            <th>Arrival Cause</th>
+                            <th>Status</th>
+                            <th>Date Enrolled</th>
+                        </tr>
+                    </thead>`
+                        
 
         for(i in data){
             output +=
@@ -28,6 +44,7 @@ function myAnimals(){
                 data[i]["date_enrolled"] +
                 "</td></tr>";
         }
+        output += `</table>`
         document.getElementById("myAnimals").innerHTML = output;
     }
 }
