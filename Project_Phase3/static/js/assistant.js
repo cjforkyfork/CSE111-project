@@ -154,10 +154,6 @@ function searchAnimal(){
             Table.innerHTML = "";
         }
     
-        var row = `<tr>
-                            <td>Current Status: ${jsondata[animal_id]}</td>
-                      </tr>`;
-        table.innerHTML += row;
       });
 }
 
