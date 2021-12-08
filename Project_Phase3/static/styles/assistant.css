@@ -14,3 +14,26 @@ body{
 .table-header{
     text-align: center;
 }
+
+/* .dd-custom{
+    border-color: #5F0F40 !important;
+}
+    .dd-custom:hover{
+        background-color: rgba(95, 15, 64, 0.9) !important;
+        color: rgba(248, 248, 248, 0.9) !important;
+    }
+
+    .dd-custom:focus{
+        background-color: rgba(95, 15, 64, 0.9) !important;
+        color: rgba(248, 248, 248, 0.9) !important;
+    }
+
+.dropdown a{
+    font-size: 1.25rem;
+    color: #000000;
+    padding-left: 0.67rem
+} */
+
+.edit-animal{
+    padding: 0.67rem;
+}

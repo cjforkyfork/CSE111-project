@@ -111,7 +111,7 @@ def donate():
         connection.commit()
         return ('', 204)
 
-@app.route("/assistant/myanimals",methods = ["GET"])
+@app.route("/assistant/myanimals", methods=["GET"])
 def myanimals():
     if request.method == "GET":
         connection = sqlite3.connect(currentdirectory + "/animals.db")
@@ -149,7 +149,35 @@ def myanimals():
                                     })
         return json_data
         
+# @app.route("/assistant/editanimals", method=["POST"])
+# def editanimal():
+#     if request.method == "POST":
+#         animalBreed = request.form['animalBreed']
+#         dob = request.form['dob']
+#         arrivalCause = request.form['arrivalCause']
+#         status = request.form['status']
+#         dateEnrolled = request.form['dateEnrolled']
 
+#         connection = sqlite3.connect(currentdirectory + "/animals.db")
+
+#         queryMyAnimals = '''
+#         SELECT animal.animal_id, animal_type, animal_breed, animal_dob, arrival_cause, status_comment, date_enrolled
+#         FROM animal
+#             INNER JOIN status ON status.status_key = animal.status_key
+#             INNER JOIN animals_assistant ON animals_assistant.animal_id = animal.animal_id
+#             INNER JOIN shelter_assistant ON shelter_assistant.assistant_id = animals_assistant.assistant_id
+#         WHERE shelter_assistant.assistant_id = ?
+#         '''
+
+#         cursor = connection.cursor()
+#         cursor.execute(queryMyAnimals)
+#         rows = cursor.fetchall()
+#         check = rows[-1][0]
+
+#         print("xxxxxxxxxxxx")
+#         print(check)
+#         print("xxxxxxxxxxxx")
+        
 
 class currDogs(Resource):
     def get(self):

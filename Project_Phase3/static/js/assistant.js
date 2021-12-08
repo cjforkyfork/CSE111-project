@@ -2,7 +2,7 @@ window.onload = function(){
     myAnimals();
 }
 
-function myAnimals(){
+function myAnimals() {
     const xhttp = new XMLHttpRequest();
     const method = "GET";
     const url = "http://127.0.0.1:5000/assistant/myanimals";
@@ -47,4 +47,14 @@ function myAnimals(){
         output += `</table>`
         document.getElementById("myAnimals").innerHTML = output;
     }
+}
+
+function editAnimals() {
+    let animal_id = document.getElementById("animalID").value
+    
+    
+}
+
+function dropDown() {
+    document.getElementById("dropdown").classList.toggle("show");
 }
