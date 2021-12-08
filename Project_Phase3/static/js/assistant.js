@@ -51,10 +51,25 @@ function myAnimals() {
     }
 }
 
-function editAnimals() {
-    let animal_id = document.getElementById("animalID").value
-    
+function addVisit() {
+    let customerID = document.getElementById("customerID").value;
+    let animalID = document.getElementById("animalID").value;
+    let vComment = document.getElementById("vComment").value;
 
+    let auxJson = {"customer": customerID,
+                "animal": animalID,
+                "comment": vComment};
+    let json = JSON.stringify(auxJson);
+
+    const xhttp = new XMLHttpRequest();
+    const method = "POST";
+    const url = "http://127.0.0.1:5000/assistant/addvisits";
+    const async = true;
+
+    xhttp.open(method, url, async);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(json);
+    window.alert("Visit has been added.");
 }
 
 function checkRequests(){

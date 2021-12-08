@@ -34,3 +34,16 @@ WHERE assistant_id = 'A'
 SELECT *
 FROM animal
 WHERE animal_id = 2
+
+-- Inserting a new visit
+INSERT INTO visits
+VALUES (6, 3, 5, 'A', 'test')
+
+SELECT visit_key
+FROM visits
+ORDER BY visit_key DESC
+LIMIT 1
+
+SELECT status_key
+FROM animal
+WHERE animal_id = 2

@@ -54,8 +54,8 @@ def get():
         visit_id = visit_id + 1
 
         req = request.get_json()
-        print(req["animal_id"])
-        print('00000000000000')
+        # print(req["animal_id"])
+        # print('00000000000000')
         an_id = int(req["animal_id"])
         cust_id = str(session['user_id'])
 
@@ -84,8 +84,9 @@ def donate():
         donation_id = donation_id + 1
 
         req = request.get_json()
-        print(req["donation_amount"])
-        print('00000000000000')
+        # print(req["donation_amount"])
+        # print(req)
+        # print('00000000000000')
         donation_amount = int(req["donation_amount"])
         cust_id = str(session['user_id'])
 
@@ -147,41 +148,49 @@ def myanimals():
                                     "status_comment": i[5],
                                     "date_enrolled": i[6]}
                                     })
-        return json_data
+        return json_data   
 
-@app.route("/assistant/search/<string:name>", methods=["GET"])
-def searchanimal(name):
-    if request.method == "GET":
+
+@app.route("/assistant/addvisits", methods=['GET', 'POST'])
+def addvisit():
+    if request.method == "POST":
+        json_data = request.get_json()
+        animalID = str(json_data["animal"])
+        visitComment = str(json_data["comment"])
+
         connection = sqlite3.connect(currentdirectory + "/animals.db")
         cursor = connection.cursor()
-        json_data = json.loads("{}")
-        animal = []
+        assistant = session['user_id']
 
-        animal_id = int(name)
-        
         query = '''
-        SELECT *
+        SELECT visit_key
+        FROM visits
+        ORDER BY visit_key DESC
+        LIMIT 1
+        '''
+        cursor.execute(query)
+        row = cursor.fetchall()
+        auxVis = row[-1][0]
+        auxVis += 1
+
+        query2 = '''
+        SELECT status_key
         FROM animal
         WHERE animal_id = ?
         '''
-        arg = [animal_id]
+        arg = [animalID]
+        cursor.execute(query2, arg)
+        row2 = cursor.fetchall()
+        auxS = row2[0][0]
 
-        cursor.execute(query, arg)
-        rows = cursor.fetchall()
-
-        animal.append([rows[0][0], rows[0][1], rows[0][2], rows[0][3], rows[0][4], rows[0][5], rows[0][6]])
-
-        json_data.update({1: {"animal_id": animal[0][0],
-                                "animal_breed": animal[0][1],
-                                "animal_dob": animal[0][1],
-                                "shelter_key": animal[0][1],
-                                "arrival_cause": animal[0][1],
-                                "status_key": animal[0][1],
-                                "date_enrolled": animal[0][1]}
-                                })
-        return json_data
-
-        
+        insert = '''
+        INSERT INTO visits
+        VALUES (?, ?, ?, ?, ?)
+        '''
+        args = [auxVis, animalID, auxS, assistant, visitComment]
+        cursor.execute(insert, args)
+        connection.commit()
+    return ('', 204)
         
 # @app.route("/assistant/editanimals", method=["POST"])
 # def editanimal():
@@ -502,9 +511,9 @@ def login_post():
         cursor.execute(query,args)
         rows = cursor.fetchall()
 
-        print(c_key)
-        print(c_name)
-        print(rows)
+        # print(c_key)
+        # print(c_name)
+        # print(rows)
         # print(session['user_id'])
 
         cursor.execute(query,args)
@@ -536,11 +545,11 @@ def login_post():
         elif rows2:
             # Checks if the user is a assistant
             global checkA
-            print("Before:")
-            print(checkA)
+            # print("Before:")
+            # print(checkA)
             checkA = True
-            print("After:")
-            print(checkA)
+            # print("After:")
+            # print(checkA)
 
             session['user_id'] = a_key
             g.user = rows2[0][1]

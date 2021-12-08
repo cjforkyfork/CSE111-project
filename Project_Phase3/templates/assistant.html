@@ -28,24 +28,41 @@
             <!-- Update Animal -->
             <div class="row">
                 <div class="col-6">
+                    <!-- Adding new visit -->
                     <table class="table table-striped table-bordered ">
                         <thead>
                             <tr>
-                                <th class="table-header" colspan="100%">Search for Animal</th>
+                                <th class="table-header" colspan="100%">New Visit</th>
                             </tr>
                         </thead>
                         <tr>
                             <td>
-                                <div class="row-fluid">
-                                    <label for="aID">Enter Animal ID: </label>
-                                    <input type="text" id="DisplayOutcome" name="DisplayOutcome">
+                                <div class="row" style="padding-bottom: 1rem; padding-left: 0.67rem;">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <label class="labelinput">Customer ID: </label>
+                                            <input class="input" type="text" id="customerID" name="customerID">
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="row">
+                                                <label class="labelinput">Animal ID:</label>
+                                                <input class="input" type="text" id="animalID" name="animalID">
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <input type="submit" name = "submit" value="Submit" onclick="searchAnimal()">
+                                <div class="row" style="padding-bottom: 1rem; padding-left: 0.67rem;">
+                                    <label class="labelinput">Visit Comment: </label>
+                                    <input class="input" type="text" id="vComment" name="vComment">
+                                </div>
+
+                                <input type="submit" name = "submit" value="Submit" onclick="addVisit()">
                             </td>
                         </tr>
                         <tbody id="animalPass"></tbody>
                     </table>
+                    <!-- Adding new visit -->
                 </div>
                 <div class="col-6">
                     <table class="table table-striped table-bordered">
@@ -56,17 +73,6 @@
                         </thead>
                         <tr>
                             <td>
-                                <!-- Drop down method -->
-                                <!-- <div class="dropdown">
-                                    <button class="btn dropdown-toggle dd-custom shadow-none" onclick="dropDown()" type="button" data-toggle="dropdown">-- Select --<span class="caret"></span></button></button>
-                                    <ul class="dropdown-menu" id="dropdown">
-                                        <li><a href="">A</a></li>
-                                        <li><a href="">B</a></li>
-                                        <li><a href="">C</a></li>
-                                    </ul>
-                                </div> -->
-    
-                                <!-- Editable fields method -->
                                 <div class="row-fluid" style="padding-left: 0.67rem;">
                                     <label for="aID">Animal ID: </label>
                                     <input type="text" id="animalID" name="animalID">
