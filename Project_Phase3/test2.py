@@ -177,8 +177,76 @@ def myanimals():
 #         print("xxxxxxxxxxxx")
 #         print(check)
 #         print("xxxxxxxxxxxx")
-        
 
+@app.route("/assistant/requests", methods=["GET"])
+def checkrequests():
+    if request.method == "GET":
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        requests = []
+        json_data = json.loads("{}")
+
+        query = '''
+        SELECT request_id, customer_name, animal_id
+        FROM requests_visits
+            INNER JOIN customer ON customer.customer_id = requests_visits.customer_id,
+            shelter_assistant
+        WHERE shelter_assistant.assistant_id = ? AND
+            animal_id IN
+                    (SELECT animal_id
+                    FROM animals_assistant
+                    WHERE assistant_id = ?)
+        '''
+        arg = session['user_id']
+
+        cursor = connection.cursor()
+        cursor.execute(query, (arg, arg))
+        rows = cursor.fetchall()
+
+        for i in rows:
+            requests.append([i[0], i[1], i[2]])
+
+        for i in requests:
+            json_data.update({i[0]: {"request_id": i[0],
+                                    "customer_name": i[1],
+                                    "animal_id": i[2]}
+                                    })
+        return json_data
+
+@app.route("/assistant/donations", methods=["GET"])
+def checkrequests():
+    if request.method == "GET":
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        requests = []
+        json_data = json.loads("{}")
+
+        query = '''
+        SELECT request_id, customer_name, animal_id
+        FROM requests_visits
+            INNER JOIN customer ON customer.customer_id = requests_visits.customer_id,
+            shelter_assistant
+        WHERE shelter_assistant.assistant_id = ? AND
+            animal_id IN
+                    (SELECT animal_id
+                    FROM animals_assistant
+                    WHERE assistant_id = ?)
+        '''
+
+        arg = session['user_id']
+
+        cursor = connection.cursor()
+        cursor.execute(query, (arg, arg))
+        rows = cursor.fetchall()
+
+        for i in rows:
+            requests.append([i[0], i[1], i[2]])
+
+        for i in requests:
+            json_data.update({i[0]: {"request_id": i[0],
+                                    "customer_name": i[1],
+                                    "animal_id": i[2]}
+                                    })
+        return json_data
+        
 class currDogs(Resource):
     def get(self):
         if 'user_id' in session:

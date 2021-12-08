@@ -10,3 +10,21 @@ FROM animal
     INNER JOIN animals_assistant ON animals_assistant.animal_id = animal.animal_id
     INNER JOIN shelter_assistant ON shelter_assistant.assistant_id = animals_assistant.assistant_id
 WHERE shelter_assistant.assistant_name = 'Tim Elliot'
+
+-- Query requests specific to the animals assigned
+SELECT request_id, customer_name, animal_id
+FROM requests_visits
+    INNER JOIN customer ON customer.customer_id = requests_visits.customer_id,
+    shelter_assistant
+WHERE shelter_assistant.assistant_id = 'A' AND
+    animal_id IN
+            (SELECT animal_id
+            FROM animals_assistant
+            WHERE assistant_id = 'A')
+
+-- Check donations to a specific shelter
+SELECT customer_name, money
+FROM donations
+    INNER JOIN shelter_assistant ON shelter_assistant.shelter_key
+    INNER JOIN customer ON customer.customer_id = donations.customer_id
+GROUP BY donations.shelter_key
