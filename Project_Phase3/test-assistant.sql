@@ -23,8 +23,9 @@ WHERE shelter_assistant.assistant_id = 'A' AND
             WHERE assistant_id = 'A')
 
 -- Check donations to a specific shelter
-SELECT customer_name, money
+SELECT DISTINCT customer_name, SUM(money), donations.shelter_key, COUNT(1)
 FROM donations
-    INNER JOIN shelter_assistant ON shelter_assistant.shelter_key
     INNER JOIN customer ON customer.customer_id = donations.customer_id
-GROUP BY donations.shelter_key
+    INNER JOIN shelter_assistant ON shelter_assistant.shelter_key = donations.shelter_key
+WHERE assistant_id = 'A'
+-- GROUP BY donations.customer_id

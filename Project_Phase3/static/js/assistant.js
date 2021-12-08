@@ -1,6 +1,7 @@
 window.onload = function(){
-    checkRequests();
     myAnimals();
+    checkRequests();
+    checkDonations();
 }
 
 function myAnimals() {
@@ -88,6 +89,41 @@ function checkRequests(){
 
         output += "</table>"
         document.getElementById("checkRequests").innerHTML = output;
+    }
+}
+
+function checkDonations(){
+    const xhttp = new XMLHttpRequest();
+    const method = "GET";
+    const url = "http://127.0.0.1:5000/assistant/donations";
+    const async = true;
+
+    xhttp.open(method, url, async);
+    xhttp.send();
+    xhttp.onload = function(){
+        const data = JSON.parse(this.responseText);
+        output = `<table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Customer</th>
+                            <th>Donated Amount</th>
+                        </tr>
+                    </thead>`
+        
+        for (i in data){
+            output +=
+                "<tr><td>" +
+                data[i]["count"] +
+                "</td><td>" +
+                data[i]["customer_name"] +
+                "</td><td>" +
+                data[i]["money"] +
+                "</td></tr>";
+        }
+
+        output += "</table>"
+        document.getElementById("checkDonations").innerHTML = output;
     }
 }
 

@@ -220,31 +220,28 @@ def checkdonations():
         json_data = json.loads("{}")
 
         query = '''
-        SELECT request_id, customer_name, animal_id
-        FROM requests_visits
-            INNER JOIN customer ON customer.customer_id = requests_visits.customer_id,
-            shelter_assistant
-        WHERE shelter_assistant.assistant_id = ? AND
-            animal_id IN
-                    (SELECT animal_id
-                    FROM animals_assistant
-                    WHERE assistant_id = ?)
+        SELECT DISTINCT customer_name, SUM(money)
+        FROM donations
+            INNER JOIN customer ON customer.customer_id = donations.customer_id
+            INNER JOIN shelter_assistant ON shelter_assistant.shelter_key = donations.shelter_key
+        WHERE assistant_id = ?
         '''
-
         arg = session['user_id']
 
         cursor = connection.cursor()
-        cursor.execute(query, (arg, arg))
+        cursor.execute(query, arg)
         rows = cursor.fetchall()
 
         for i in rows:
-            requests.append([i[0], i[1], i[2]])
+            requests.append([i[0], i[1]])
 
         for i in requests:
-            json_data.update({i[0]: {"request_id": i[0],
-                                    "customer_name": i[1],
-                                    "animal_id": i[2]}
+            j = 1
+            json_data.update({i[0]: {"count": j,
+                                    "customer_name": i[0],
+                                    "money": i[1]}
                                     })
+            j += 1
         return json_data
         
 class currDogs(Resource):
