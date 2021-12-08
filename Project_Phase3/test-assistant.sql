@@ -29,3 +29,8 @@ FROM donations
     INNER JOIN shelter_assistant ON shelter_assistant.shelter_key = donations.shelter_key
 WHERE assistant_id = 'A'
 -- GROUP BY donations.customer_id
+
+-- Retrieving animal
+SELECT *
+FROM animal
+WHERE animal_id = 2

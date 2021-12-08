@@ -148,6 +148,40 @@ def myanimals():
                                     "date_enrolled": i[6]}
                                     })
         return json_data
+
+@app.route("/assistant/search/<string:name>", methods=["GET"])
+def searchanimal(name):
+    if request.method == "GET":
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        cursor = connection.cursor()
+        json_data = json.loads("{}")
+        animal = []
+
+        animal_id = int(name)
+        
+        query = '''
+        SELECT *
+        FROM animal
+        WHERE animal_id = ?
+        '''
+        arg = [animal_id]
+
+        cursor.execute(query, arg)
+        rows = cursor.fetchall()
+
+        animal.append([rows[0][0], rows[0][1], rows[0][2], rows[0][3], rows[0][4], rows[0][5], rows[0][6]])
+
+        json_data.update({1: {"animal_id": animal[0][0],
+                                "animal_breed": animal[0][1],
+                                "animal_dob": animal[0][1],
+                                "shelter_key": animal[0][1],
+                                "arrival_cause": animal[0][1],
+                                "status_key": animal[0][1],
+                                "date_enrolled": animal[0][1]}
+                                })
+        return json_data
+
+        
         
 # @app.route("/assistant/editanimals", method=["POST"])
 # def editanimal():

@@ -127,6 +127,40 @@ function checkDonations(){
     }
 }
 
+function searchAnimal(){
+    let animal_id = document.getElementById("animalPass").value
+    let res = ''
+    let link = "http://127.0.0.1:5000/assistant/search/"
+
+    res = link.concat(animal_id)
+    fetch(res, {
+        method: "GET"
+    })
+    .then((res) => {
+        return res.json();
+    })
+    .then(function(json){
+        jsondata = json;
+        const keys = Object.keys(jsondata);
+
+        var table = document.getElementById("animalPass");
+    
+        var rowCount = document.getElementById('animalPass').rows.length;
+    
+        if(rowCount == 0){
+        }
+        else{
+            var Table = document.getElementById("animalPass");
+            Table.innerHTML = "";
+        }
+    
+        var row = `<tr>
+                            <td>Current Status: ${jsondata[animal_id]}</td>
+                      </tr>`;
+        table.innerHTML += row;
+      });
+}
+
 // function dropDown() {
 //     document.getElementById("dropdown").classList.toggle("show");
 // }
