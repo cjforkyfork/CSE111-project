@@ -15,6 +15,10 @@ app.secret_key = 'TEAM111'
 
 api = Api(app)
 
+# Check variables for customer/assistant
+checkS = False
+checkA = False
+
 @app.route("/customer/getOutcome/<string:name>",methods = ["GET"])
 def out(name):
     if request.method == "GET":
@@ -107,6 +111,173 @@ def donate():
         connection.commit()
         return ('', 204)
 
+@app.route("/assistant/myanimals", methods=["GET"])
+def myanimals():
+    if request.method == "GET":
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        animals = []
+        json_data = json.loads("{}")
+
+        query = '''
+        SELECT animal.animal_id, animal_type, animal_breed, animal_dob, arrival_cause, status_comment, date_enrolled
+        FROM animal
+            INNER JOIN status ON status.status_key = animal.status_key
+            INNER JOIN animals_assistant ON animals_assistant.animal_id = animal.animal_id
+            INNER JOIN shelter_assistant ON shelter_assistant.assistant_id = animals_assistant.assistant_id
+        WHERE shelter_assistant.assistant_id = ?
+        '''
+        arg = session['user_id']
+        # print("xxxxxxxxxx")
+        # print(arg)
+        # print("xxxxxxxxxx")
+
+        cursor = connection.cursor()
+        cursor.execute(query, arg)
+        rows = cursor.fetchall()
+
+        for i in rows:
+            animals.append([i[0], i[1], i[2], i[3], i[4], i[5], i[6]])
+        
+        for i in animals:
+            json_data.update({i[0]: {"animal_id": i[0],
+                                    "animal_type": i[1], 
+                                    "animal_breed": i[2], 
+                                    "animal_dob": i[3],
+                                    "arrival_cause": i[4],
+                                    "status_comment": i[5],
+                                    "date_enrolled": i[6]}
+                                    })
+        return json_data
+
+@app.route("/assistant/search/<string:name>", methods=["GET"])
+def searchanimal(name):
+    if request.method == "GET":
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        cursor = connection.cursor()
+        json_data = json.loads("{}")
+        animal = []
+
+        animal_id = int(name)
+        
+        query = '''
+        SELECT *
+        FROM animal
+        WHERE animal_id = ?
+        '''
+        arg = [animal_id]
+
+        cursor.execute(query, arg)
+        rows = cursor.fetchall()
+
+        animal.append([rows[0][0], rows[0][1], rows[0][2], rows[0][3], rows[0][4], rows[0][5], rows[0][6]])
+
+        json_data.update({1: {"animal_id": animal[0][0],
+                                "animal_breed": animal[0][1],
+                                "animal_dob": animal[0][1],
+                                "shelter_key": animal[0][1],
+                                "arrival_cause": animal[0][1],
+                                "status_key": animal[0][1],
+                                "date_enrolled": animal[0][1]}
+                                })
+        return json_data
+
+        
+        
+# @app.route("/assistant/editanimals", method=["POST"])
+# def editanimal():
+#     if request.method == "POST":
+#         animalBreed = request.form['animalBreed']
+#         dob = request.form['dob']
+#         arrivalCause = request.form['arrivalCause']
+#         status = request.form['status']
+#         dateEnrolled = request.form['dateEnrolled']
+
+#         connection = sqlite3.connect(currentdirectory + "/animals.db")
+
+#         queryMyAnimals = '''
+#         SELECT animal.animal_id, animal_type, animal_breed, animal_dob, arrival_cause, status_comment, date_enrolled
+#         FROM animal
+#             INNER JOIN status ON status.status_key = animal.status_key
+#             INNER JOIN animals_assistant ON animals_assistant.animal_id = animal.animal_id
+#             INNER JOIN shelter_assistant ON shelter_assistant.assistant_id = animals_assistant.assistant_id
+#         WHERE shelter_assistant.assistant_id = ?
+#         '''
+
+#         cursor = connection.cursor()
+#         cursor.execute(queryMyAnimals)
+#         rows = cursor.fetchall()
+#         check = rows[-1][0]
+
+#         print("xxxxxxxxxxxx")
+#         print(check)
+#         print("xxxxxxxxxxxx")
+
+@app.route("/assistant/requests", methods=["GET"])
+def checkrequests():
+    if request.method == "GET":
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        requests = []
+        json_data = json.loads("{}")
+
+        query = '''
+        SELECT request_id, customer_name, animal_id
+        FROM requests_visits
+            INNER JOIN customer ON customer.customer_id = requests_visits.customer_id,
+            shelter_assistant
+        WHERE shelter_assistant.assistant_id = ? AND
+            animal_id IN
+                    (SELECT animal_id
+                    FROM animals_assistant
+                    WHERE assistant_id = ?)
+        '''
+        arg = session['user_id']
+
+        cursor = connection.cursor()
+        cursor.execute(query, (arg, arg))
+        rows = cursor.fetchall()
+
+        for i in rows:
+            requests.append([i[0], i[1], i[2]])
+
+        for i in requests:
+            json_data.update({i[0]: {"request_id": i[0],
+                                    "customer_name": i[1],
+                                    "animal_id": i[2]}
+                                    })
+        return json_data
+
+@app.route("/assistant/donations", methods=["GET"])
+def checkdonations():
+    if request.method == "GET":
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        requests = []
+        json_data = json.loads("{}")
+
+        query = '''
+        SELECT DISTINCT customer_name, SUM(money)
+        FROM donations
+            INNER JOIN customer ON customer.customer_id = donations.customer_id
+            INNER JOIN shelter_assistant ON shelter_assistant.shelter_key = donations.shelter_key
+        WHERE assistant_id = ?
+        '''
+        arg = session['user_id']
+
+        cursor = connection.cursor()
+        cursor.execute(query, arg)
+        rows = cursor.fetchall()
+
+        for i in rows:
+            requests.append([i[0], i[1]])
+
+        for i in requests:
+            j = 1
+            json_data.update({i[0]: {"count": j,
+                                    "customer_name": i[0],
+                                    "money": i[1]}
+                                    })
+            j += 1
+        return json_data
+        
 class currDogs(Resource):
     def get(self):
         if 'user_id' in session:
@@ -124,7 +295,7 @@ class currDogs(Resource):
             cursor.execute(query_animal,args)
             rows = cursor.fetchall()
             list_animals = []
-            # retrieve all classes for the given student
+            # retrieves the information
             for cls in rows:
                 list_animals.append([cls[0], cls[1], cls[2],cls[3],cls[4],cls[5],cls[6],cls[7]])
             json_data = json.loads("{}")
@@ -255,28 +426,53 @@ def before_request():
     g.user = None
     # session.pop('user_id', None)
     if 'user_id' in session:
-        query = '''
-        SELECT customer_id, customer_name
-        FROM customer 
-        WHERE customer_id = ?
-        '''
-        args = session['user_id']
-        print('before request')
-        print(session['user_id'])
-        print(args)
-        connection = sqlite3.connect(currentdirectory + "/animals.db")
-        cursor = connection.cursor()
-        cursor.execute(query,args)
-        rows = cursor.fetchall()
-        if query is None:
-            query = '4'
-        g.user = rows[0][1]
+        # Checking if global variable changed correctly
+        # print("--------")
+        # print(checkA)
+        # print("--------")
+
+        if checkS:
+            query = '''
+            SELECT customer_id, customer_name
+            FROM customer 
+            WHERE customer_id = ?
+            '''
+            args = session['user_id']
+            # print('before request')
+            # print(session['user_id'])
+            # print(args)
+            connection = sqlite3.connect(currentdirectory + "/animals.db")
+            cursor = connection.cursor()
+            cursor.execute(query,args)
+            rows = cursor.fetchall()
+            if query is None:
+                query = '4'
+            g.user = rows[0][1]
+        elif checkA:
+            query = '''
+            SELECT assistant_id, assistant_name
+            FROM shelter_assistant 
+            WHERE assistant_id = ?
+            '''
+
+            args = session['user_id']
+            connection = sqlite3.connect(currentdirectory + "/animals.db")
+            cursor = connection.cursor()
+            cursor.execute(query,args)
+            rows = cursor.fetchall()
+            g.user = rows[0][1]
 
 @app.route('/customer')
 def customer_logged():
     if not g.user:
         return redirect(url_for('login_post'))
     return render_template('customer.html')
+
+@app.route('/assistant')
+def assistant_logged():
+    if not g.user:
+        return redirect(url_for('login_post'))
+    return render_template('assistant.html')
 
 @app.route("/")
 def main():
@@ -291,31 +487,28 @@ def login_post():
 
         connection = sqlite3.connect(currentdirectory + "/animals.db")
         cursor = connection.cursor()
+
         query = '''
         SELECT customer_id, customer_name
         FROM customer 
         WHERE customer_id = ?
         AND customer_name = ?
         '''
+
         c_key = str(username)
         c_name = str(password)
-        
         args = [c_key,c_name]
 
         cursor.execute(query,args)
         rows = cursor.fetchall()
-        
+
         print(c_key)
         print(c_name)
         print(rows)
         # print(session['user_id'])
-        if not rows:
-                return redirect(url_for('login_post'))
-        else:
-            session['user_id'] = c_key
-            # connection.close()
-            g.user = rows[0][1]
-            return redirect(url_for('customer_logged'))
+
+        cursor.execute(query,args)
+        rows = cursor.fetchall()
 
         query2 = '''
         SELECT assistant_id, assistant_name
@@ -323,16 +516,38 @@ def login_post():
         WHERE assistant_id = ?
         AND assistant_name = ?
         '''
+
         a_key = str(username)
         a_name = str(password)
-
         args2 = [a_key,a_name]
-        cursor.execute(query2,args2)
+
+        cursor.execute(query2, args2)
         rows2 = cursor.fetchall()
-        if rows2[0][0] == None and rows2[0][1] == None:
-                print("There are no results for this query")
-        else:
-            print("TRUE")
+        
+        if rows:
+            # Checks if the user is a customer
+            global checkS
+            checkS = True
+            
+            session['user_id'] = c_key
+            # connection.close()
+            g.user = rows[0][1]
+            return redirect(url_for('customer_logged'))
+        elif rows2:
+            # Checks if the user is a assistant
+            global checkA
+            print("Before:")
+            print(checkA)
+            checkA = True
+            print("After:")
+            print(checkA)
+
+            session['user_id'] = a_key
+            g.user = rows2[0][1]
+            return redirect(url_for('assistant_logged'))
+        elif not rows:
+                return redirect(url_for('login_post'))
+
     return render_template('login.html')
 
 @app.route('/my-link/')
