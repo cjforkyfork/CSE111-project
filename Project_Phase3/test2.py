@@ -213,7 +213,7 @@ def checkrequests():
         return json_data
 
 @app.route("/assistant/donations", methods=["GET"])
-def checkrequests():
+def checkdonations():
     if request.method == "GET":
         connection = sqlite3.connect(currentdirectory + "/animals.db")
         requests = []
