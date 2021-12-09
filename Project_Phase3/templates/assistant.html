@@ -74,43 +74,12 @@
                         <tr>
                             <td>
                                 <div class="row-fluid" style="padding-left: 0.67rem;">
-                                    <label for="aID">Animal ID: </label>
-                                    <input type="text" id="animalID" name="animalID">
-                                </div>
-
-                                <div class="row edit-animal">
-                                    <div class="col-4">
-                                        <label for="aID">Animal Breed: </label>
-                                        <input class="input" type="text" id="animalBreed" name="animalBreed">
-                                    </div>
-                                    <div class="col-4">
-                                        <label for="aID">Date of Birth: </label>
-                                        <input class="input" type="text" id="dob" name="dob">
-                                    </div>
-                                    <div class="col-4">
-                                        <label for="aID">Arrival Cause: </label>
-                                        <input class="input" type="text" id="arrivalCause" name="arrivalCause">
-                                    </div>
-                                </div>
-
-                                <div class="row edit-animal">
-                                    <div class="col-4">
-                                        <label for="aID">Status: </label>
-                                        <input class="input" type="text" id="status" name="status">
-                                    </div>
-                                    <div class="col-4">
-                                        <label for="aID">Date Enrolled: </label>
-                                        <input class="input" type="text" id="dateEnrolled" name="dateEnrolled">
-                                    </div>
-                                </div>
-
-                                <div class="row edit-animal">
-                                    <div class="col-9"></div>
-                                    <div class="col-3">
-                                        <input type="submit" name = "submit" value="Submit" onclick="getOutcome()" style="min-width: 100%;">
-                                    </div>
+                                    <label>Animal ID: </label>
+                                    <input type="text" id="animalID_E" name="animalID_E">
+                                    <input type="submit" name = "fill" value="fill" onclick="fill()">
                                 </div>
                             </td>
+                            <tbody id="filledResults"></tbody>
                         </tr>
                     </table>
                 </div>

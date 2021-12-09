@@ -47,3 +47,17 @@ LIMIT 1
 SELECT status_key
 FROM animal
 WHERE animal_id = 2
+
+-- Selecting Animal ID (Edit Animal Entry)
+SELECT animal_breed, animal_dob, arrival_cause, status_key, date_enrolled
+FROM animal
+WHERE animal_id = '2'
+
+-- Updating an animal 
+UPDATE animal
+SET animal_breed = 'Domestic Shorthair Mix',
+    animal_dob = DATE('2010-01-01'),
+    arrival_cause = 'stray',
+    status_key = '6',
+    date_enrolled = DATE('2021-03-15')
+WHERE animal_id = 7

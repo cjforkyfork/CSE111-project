@@ -72,6 +72,104 @@ function addVisit() {
     window.alert("Visit has been added.");
 }
 
+function fill(){
+    let animalID = document.getElementById("animalID_E").value;
+    let res = ''
+    let link = "http://127.0.0.1:5000/assistant/fill/"
+
+    res = link.concat(animalID)
+    fetch(res, {
+        method: 'GET'
+    })
+    .then((res) => {
+        return res.json();
+      })
+      .then(function (json) {
+        let result = document.getElementById("filledResults");
+    
+        let rowCount = document.getElementById("filledResults").rows.length;
+        // window.alert(rowCount);
+    
+        if(rowCount == 0){
+            // proceed forward
+        }
+        else{
+            // already has content, sets it back to row count = 0
+            let auxResult = document.getElementById("filledResults");
+            auxResult.innerHTML = "";
+        }
+    
+        let output = `<tr>
+                        <td>
+                            <div class="row" style="padding: 1rem;">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <label class="labelinput">Arrival Cause: </label>
+                                        <input class="input" type="text" id="arrivalCause_E" name="arrivalCause_E" value="${json['arrival_cause']}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <label class="labelinput">Date of Birth:</label>
+                                        <input class="input" type="text" id="dob_E" name="dob_E" value="${json['animal_dob']}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding: 1rem;">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <label class="labelinput">Status Key:</label>
+                                        <input class="input" type="text" id="statusKey_E" name="statusKey_E" value="${json['status_key']}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <label class="labelinput">Date Enrolled: </label>
+                                        <input class="input" type="text" id="dateEnrolled_E" name="dateEnrolled_E" value="${json['date_enrolled']}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding: 1rem;">
+                                <label class="labelinput">Animal Breed: </label>
+                                <input class="input" type="text" id="animalBreed_E" name="animalBreed_E" value="${json['animal_breed']}"  style="min-width:45%">
+                            </div>
+                            <div class="row" style="padding: 1rem;">
+                                <input type="submit" name="submit" value="Submit" onclick="editAnimal()">
+                            </div>
+                        </td>
+                    </tr>`;
+        result.innerHTML += output;
+      });  
+}
+
+function editAnimal(){
+    let animalID = document.getElementById("animalID_E").value;
+    let animalBreed = document.getElementById("animalBreed_E").value;
+    let dob = document.getElementById("dob_E").value;
+    let arrivalCause = document.getElementById("arrivalCause_E").value;
+    let status = document.getElementById("statusKey_E").value;
+    let dateEnrolled = document.getElementById("dateEnrolled_E").value;
+
+    let auxJson = {"animalID": animalID,
+                    "animalBreed": animalBreed,
+                    "dob": dob,
+                    "arrivalCause": arrivalCause,
+                    "status": status,
+                    "dateEnrolled": dateEnrolled}
+    let json = JSON.stringify(auxJson);
+
+    const xhttp = new XMLHttpRequest();
+    const method = "POST";
+    const url = "http://127.0.0.1:5000/assistant/editanimal";
+    const async = true;
+
+    xhttp.open(method, url, async);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    window.alert(json)
+    xhttp.send(json);
+    // window.alert("Animal has been updated.");
+}
+
 function checkRequests(){
     const xhttp = new XMLHttpRequest();
     const method = "GET";
@@ -83,6 +181,11 @@ function checkRequests(){
     xhttp.onload = function(){
         const data = JSON.parse(this.responseText);
         output = `<table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="100%" style="background-color: royalblue;">Check Requests *UPDATE LATER*</th>
+                        </tr>
+                    </thead>
                     <thead>
                         <tr>
                             <th>Request ID</th>
@@ -140,36 +243,6 @@ function checkDonations(){
         output += "</table>"
         document.getElementById("checkDonations").innerHTML = output;
     }
-}
-
-function searchAnimal(){
-    let animal_id = document.getElementById("animalPass").value
-    let res = ''
-    let link = "http://127.0.0.1:5000/assistant/search/"
-
-    res = link.concat(animal_id)
-    fetch(res, {
-        method: "GET"
-    })
-    .then((res) => {
-        return res.json();
-    })
-    .then(function(json){
-        jsondata = json;
-        const keys = Object.keys(jsondata);
-
-        var table = document.getElementById("animalPass");
-    
-        var rowCount = document.getElementById('animalPass').rows.length;
-    
-        if(rowCount == 0){
-        }
-        else{
-            var Table = document.getElementById("animalPass");
-            Table.innerHTML = "";
-        }
-    
-      });
 }
 
 // function dropDown() {

@@ -190,36 +190,105 @@ def addvisit():
         args = [auxVis, animalID, auxS, assistant, visitComment]
         cursor.execute(insert, args)
         connection.commit()
-    return ('', 204)
+        return ('', 204)
         
-# @app.route("/assistant/editanimals", method=["POST"])
-# def editanimal():
-#     if request.method == "POST":
-#         animalBreed = request.form['animalBreed']
-#         dob = request.form['dob']
-#         arrivalCause = request.form['arrivalCause']
-#         status = request.form['status']
-#         dateEnrolled = request.form['dateEnrolled']
 
-#         connection = sqlite3.connect(currentdirectory + "/animals.db")
 
-#         queryMyAnimals = '''
-#         SELECT animal.animal_id, animal_type, animal_breed, animal_dob, arrival_cause, status_comment, date_enrolled
-#         FROM animal
-#             INNER JOIN status ON status.status_key = animal.status_key
-#             INNER JOIN animals_assistant ON animals_assistant.animal_id = animal.animal_id
-#             INNER JOIN shelter_assistant ON shelter_assistant.assistant_id = animals_assistant.assistant_id
-#         WHERE shelter_assistant.assistant_id = ?
-#         '''
+@app.route("/assistant/fill/<string:name>", methods=["POST", "GET"])
+def fill(name):
+    if request.method == "GET":
+        # json_data = request.get_json() # only works with POST request
+        # animalID = str(json_data["animal"])
 
-#         cursor = connection.cursor()
-#         cursor.execute(queryMyAnimals)
-#         rows = cursor.fetchall()
-#         check = rows[-1][0]
+        animal = []
 
-#         print("xxxxxxxxxxxx")
-#         print(check)
-#         print("xxxxxxxxxxxx")
+        auxanimalID = int(name)
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        cursor = connection.cursor()
+
+        json_data = json.loads("{}")
+
+        query = '''
+        SELECT animal_breed, animal_dob, arrival_cause, status_key, date_enrolled
+        FROM animal
+        WHERE animal_id = ?
+        '''
+        arg = [auxanimalID]
+        cursor.execute(query, arg)
+        row = cursor.fetchall()
+
+        for i in row:
+            animal.append([i[0], i[1], i[2], i[3], i[4]])
+
+        for i in animal:
+            json_data.update({"animal_breed": i[0],
+                                "animal_dob": i[1],
+                                "arrival_cause": i[2],
+                                "status_key": i[3],
+                                "date_enrolled": i[4]}
+                                )
+
+        return json_data
+    # if request.method == "GET":
+    #     animal = []
+    #     json_out = json.loads("{}")
+
+    #     connection = sqlite3.connect(currentdirectory + "/animals.db")
+    #     cursor = connection.cursor()
+
+    #     query = '''
+    #     SELECT animal_breed, animal_dob, arrival_cause, status_key, date_enrolled
+    #     FROM animal
+    #     WHERE animal_id = ?
+    #     '''
+    #     arg = [animalID]
+    #     print(animalID)
+    #     cursor.execute(query, arg)
+    #     row = cursor.fetchall()
+
+    #     for i in row:
+    #         animal.append([i[0], i[1], i[2], i[3], i[4]])
+
+    #     for i in animal:
+    #         json_out.update({i[0]: {"animal_breed": i[0],
+    #                             "animal_dob": i[1],
+    #                             "arrival_cause": i[2],
+    #                             "status_key": i[3],
+    #                             "date_enrolled": i[4]}
+    #                             })
+    #     return json_out
+
+
+@app.route("/assistant/editanimal", methods=["GET", "POST"])
+def editanimal():
+    if request.method == "POST":
+        json_data = request.get_json()
+        animalID = str(json_data["animalID"])
+        animalBreed = str(json_data["animalBreed"])
+        dob = str(json_data["dob"])
+        arrivalCause = str(json_data["arrivalCause"])
+        status = str(json_data["status"])
+        dateEnrolled = str(json_data["dateEnrolled"])
+
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        cursor = connection.cursor()
+
+        query = '''
+        UPDATE animal
+        SET animal_breed = ?,
+            animal_dob = DATE(?),
+            arrival_cause = ?,
+            status_key = ?,
+            date_enrolled = DATE(?)
+        WHERE animal_id = ?
+        '''
+
+        print(animalID)
+        # args = [animalBreed, dob, arrivalCause, status, dateEnrolled, animalID]
+        cursor.execute(query, (animalBreed, dob, arrivalCause, status, dateEnrolled, animalID))
+        connection.commit()
+        return ('', 204)
+
 
 @app.route("/assistant/requests", methods=["GET"])
 def checkrequests():
