@@ -44,7 +44,7 @@
                         </thead>
                         <tr>
                             <td>
-                                <div class="row" style="padding-bottom: 1rem; padding-left: 0.67rem;">
+                                <div class="row" style="padding-bottom: 1rem; padding-left: 2rem;">
                                     <div class="col-6">
                                         <div class="row">
                                             <label class="labelinput">Customer ID: </label>
@@ -59,9 +59,20 @@
                                     </div>
                                 </div>
 
-                                <div class="row" style="padding-bottom: 1rem; padding-left: 0.67rem;">
-                                    <label class="labelinput">Visit Comment: </label>
-                                    <input class="input" type="text" id="vComment" name="vComment">
+                                <div class="row" style="padding-bottom: 1rem; padding-left: 2rem;">
+
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <label class="labelinput">Visit Comment: </label>
+                                            <input class="input" type="text" id="vComment" name="vComment">
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="row">
+                                            <label class="labelinput">Status Key: </label>
+                                            <input class="input" type="text" id="statusKey" name="statusKey">
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <input type="submit" name = "submit" value="Submit" onclick="addVisit()">
