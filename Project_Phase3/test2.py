@@ -283,9 +283,9 @@ def editanimal():
         WHERE animal_id = ?
         '''
 
-        print(animalID)
-        # args = [animalBreed, dob, arrivalCause, status, dateEnrolled, animalID]
-        cursor.execute(query, (animalBreed, dob, arrivalCause, status, dateEnrolled, animalID))
+        # print(animalID)
+        args = [animalBreed, dob, arrivalCause, status, dateEnrolled, animalID]
+        cursor.execute(query, args)
         connection.commit()
         return ('', 204)
 

@@ -1,6 +1,46 @@
 * {
     box-sizing: border-box;
   }
+
+.navbar-custom{
+  background-color: #003049;
+}
+
+.navbar-custom{
+  background-color: #003049;
+}
+
+.icon{
+  max-width: 4rem;
+  height: auto;
+}
+
+.icon-heart{
+  max-width: 2.33rem;
+  height: auto;
+  padding-bottom: 3.5rem;
+  position: absolute;
+  top: 0.33rem;
+}
+
+.user-message{
+  padding-left: 3rem; 
+  color: #669BBC;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.logout{
+  margin-left:auto; 
+  color: #003049 !important;
+  background-color: #669BBC !important;
+  border-radius: 0.67rem !important;
+}
+  .logout:hover{
+      color: #669BBC !important;
+      background-color: #003049 !important;
+      border-color: #669BBC;
+  }
   
   .row {
     margin-left:-5px;

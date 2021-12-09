@@ -1,10 +1,38 @@
-body{
-    padding-top: 1rem;
+.navbar-custom{
+    background-color: #003049;
+}
+
+.icon{
+    max-width: 4rem;
+    height: auto;
+}
+
+.icon-heart{
+    max-width: 2.33rem;
+    height: auto;
+    padding-bottom: 3.5rem;
+    position: absolute;
+    top: 0.33rem;
+}
+
+.user-message{
+    padding-left: 3rem; 
+    color: #669BBC;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .logout{
-    float: right;
+    margin-left:auto; 
+    color: #003049 !important;
+    background-color: #669BBC !important;
+    border-radius: 0.67rem !important;
 }
+    .logout:hover{
+        color: #669BBC !important;
+        background-color: #003049 !important;
+        border-color: #669BBC;
+    }
 
 .header{
     text-align: center;
@@ -14,25 +42,6 @@ body{
 .table-header{
     text-align: center;
 }
-
-/* .dd-custom{
-    border-color: #5F0F40 !important;
-}
-    .dd-custom:hover{
-        background-color: rgba(95, 15, 64, 0.9) !important;
-        color: rgba(248, 248, 248, 0.9) !important;
-    }
-
-    .dd-custom:focus{
-        background-color: rgba(95, 15, 64, 0.9) !important;
-        color: rgba(248, 248, 248, 0.9) !important;
-    }
-
-.dropdown a{
-    font-size: 1.25rem;
-    color: #000000;
-    padding-left: 0.67rem
-} */
 
 .edit-animal{
     padding: 0.67rem;

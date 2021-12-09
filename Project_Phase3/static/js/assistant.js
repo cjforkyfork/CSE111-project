@@ -14,7 +14,10 @@ function myAnimals() {
     xhttp.send();
     xhttp.onload = function(){
         const data = JSON.parse(this.responseText);
-        output = `<table class="table table-striped table-bordered">
+        output = `<table class="table table-striped table-bordered" style="max-width: 75%; margin-left: auto; margin-right: auto;">
+                    <thead>
+                        <th class="table-header" colspan="100%">My Animal(s)</th>
+                    </thead>
                     <thead>
                         <tr>
                             <th>Animal ID</th>
@@ -165,9 +168,9 @@ function editAnimal(){
 
     xhttp.open(method, url, async);
     xhttp.setRequestHeader("Content-Type", "application/json");
-    window.alert(json)
+    // window.alert(json)
     xhttp.send(json);
-    // window.alert("Animal has been updated.");
+    window.alert("Animal has been updated.");
 }
 
 function checkRequests(){
