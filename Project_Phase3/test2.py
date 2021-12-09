@@ -155,8 +155,11 @@ def myanimals():
 def addvisit():
     if request.method == "POST":
         json_data = request.get_json()
-        animalID = str(json_data["animal"])
+        customerID = str(json_data["customer"])
+        animalID = int(json_data["animal"])
         visitComment = str(json_data["comment"])
+        statusKey = int(json_data["status"])
+
 
         connection = sqlite3.connect(currentdirectory + "/animals.db")
         cursor = connection.cursor()
@@ -173,22 +176,30 @@ def addvisit():
         auxVis = row[-1][0]
         auxVis += 1
 
-        query2 = '''
-        SELECT status_key
-        FROM animal
-        WHERE animal_id = ?
-        '''
-        arg = [animalID]
-        cursor.execute(query2, arg)
-        row2 = cursor.fetchall()
-        auxS = row2[0][0]
+        # query2 = '''
+        # SELECT status_key
+        # FROM animal
+        # WHERE animal_id = ?
+        # '''
+        # arg = [animalID]
+        # cursor.execute(query2, arg)
+        # row2 = cursor.fetchall()
+        # auxS = row2[0][0]
 
         insert = '''
         INSERT INTO visits
         VALUES (?, ?, ?, ?, ?)
         '''
-        args = [auxVis, animalID, auxS, assistant, visitComment]
+        args = [auxVis, animalID, statusKey, assistant, visitComment]
         cursor.execute(insert, args)
+
+        query2 = '''
+        DELETE FROM requests_visits
+        WHERE customer_id = ?
+        '''
+        arg = [customerID]
+        cursor.execute(query2, arg)
+
         connection.commit()
         return ('', 204)
         
@@ -229,35 +240,6 @@ def fill(name):
                                 )
 
         return json_data
-    # if request.method == "GET":
-    #     animal = []
-    #     json_out = json.loads("{}")
-
-    #     connection = sqlite3.connect(currentdirectory + "/animals.db")
-    #     cursor = connection.cursor()
-
-    #     query = '''
-    #     SELECT animal_breed, animal_dob, arrival_cause, status_key, date_enrolled
-    #     FROM animal
-    #     WHERE animal_id = ?
-    #     '''
-    #     arg = [animalID]
-    #     print(animalID)
-    #     cursor.execute(query, arg)
-    #     row = cursor.fetchall()
-
-    #     for i in row:
-    #         animal.append([i[0], i[1], i[2], i[3], i[4]])
-
-    #     for i in animal:
-    #         json_out.update({i[0]: {"animal_breed": i[0],
-    #                             "animal_dob": i[1],
-    #                             "arrival_cause": i[2],
-    #                             "status_key": i[3],
-    #                             "date_enrolled": i[4]}
-    #                             })
-    #     return json_out
-
 
 @app.route("/assistant/editanimal", methods=["GET", "POST"])
 def editanimal():
@@ -289,6 +271,30 @@ def editanimal():
         connection.commit()
         return ('', 204)
 
+@app.route("/assistant/status", methods=["GET"])
+def checkstatus():
+    if request.method == "GET":
+        connection = sqlite3.connect(currentdirectory + "/animals.db")
+        requests = []
+        json_data = json.loads("{}")
+
+        query = '''
+        SELECT *
+        FROM status
+        '''
+
+        cursor = connection.cursor()
+        cursor.execute(query)
+        rows = cursor.fetchall()
+
+        for i in rows:
+            requests.append([i[0], i[1]])
+
+        for i in requests:
+            json_data.update({i[0]: {"status": i[0],
+                                    "comment": i[1]}
+                                    })
+        return json_data
 
 @app.route("/assistant/requests", methods=["GET"])
 def checkrequests():
@@ -298,7 +304,7 @@ def checkrequests():
         json_data = json.loads("{}")
 
         query = '''
-        SELECT request_id, customer_name, animal_id
+        SELECT request_id, customer_name, animal_id, customer.customer_id
         FROM requests_visits
             INNER JOIN customer ON customer.customer_id = requests_visits.customer_id,
             shelter_assistant
@@ -315,12 +321,13 @@ def checkrequests():
         rows = cursor.fetchall()
 
         for i in rows:
-            requests.append([i[0], i[1], i[2]])
+            requests.append([i[0], i[1], i[2], i[3]])
 
         for i in requests:
             json_data.update({i[0]: {"request_id": i[0],
                                     "customer_name": i[1],
-                                    "animal_id": i[2]}
+                                    "animal_id": i[2],
+                                    "customer_id": i[3]}
                                     })
         return json_data
 

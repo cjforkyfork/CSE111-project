@@ -1,5 +1,6 @@
 window.onload = function(){
     myAnimals();
+    checkStatus();
     checkRequests();
     checkDonations();
 }
@@ -14,7 +15,7 @@ function myAnimals() {
     xhttp.send();
     xhttp.onload = function(){
         const data = JSON.parse(this.responseText);
-        output = `<table class="table table-striped table-bordered" style="max-width: 75%; margin-left: auto; margin-right: auto;">
+        output = `<table class="table table-striped table-bordered" style="max-width: 85%; margin-left: auto; margin-right: auto;">
                     <thead>
                         <th class="table-header" colspan="100%">My Animal(s)</th>
                     </thead>
@@ -58,10 +59,12 @@ function addVisit() {
     let customerID = document.getElementById("customerID").value;
     let animalID = document.getElementById("animalID").value;
     let vComment = document.getElementById("vComment").value;
+    let statusKey = document.getElementById("statusKey").value;
 
     let auxJson = {"customer": customerID,
                 "animal": animalID,
-                "comment": vComment};
+                "comment": vComment,
+                "status": statusKey};
     let json = JSON.stringify(auxJson);
 
     const xhttp = new XMLHttpRequest();
@@ -103,7 +106,7 @@ function fill(){
         }
     
         let output = `<tr>
-                        <td>
+                        <td style="padding-left: 3rem;">
                             <div class="row" style="padding: 1rem;">
                                 <div class="col-6">
                                     <div class="row">
@@ -113,7 +116,7 @@ function fill(){
                                 </div>
                                 <div class="col-6">
                                     <div class="row">
-                                        <label class="labelinput">Date of Birth:</label>
+                                        <label class="labelinput" style="padding-right: 1.15rem;">Date of Birth:</label>
                                         <input class="input" type="text" id="dob_E" name="dob_E" value="${json['animal_dob']}">
                                     </div>
                                 </div>
@@ -121,7 +124,7 @@ function fill(){
                             <div class="row" style="padding: 1rem;">
                                 <div class="col-6">
                                     <div class="row">
-                                        <label class="labelinput">Status Key:</label>
+                                        <label class="labelinput" style="padding-right: 2.4rem;">Status Key:</label>
                                         <input class="input" type="text" id="statusKey_E" name="statusKey_E" value="${json['status_key']}">
                                     </div>
                                 </div>
@@ -173,6 +176,38 @@ function editAnimal(){
     window.alert("Animal has been updated.");
 }
 
+function checkStatus(){
+    const xhttp = new XMLHttpRequest();
+    const method = "GET";
+    const url = "http://127.0.0.1:5000/assistant/status";
+    const async = true;
+
+    xhttp.open(method, url, async);
+    xhttp.send();
+    xhttp.onload = function(){
+        const data = JSON.parse(this.responseText);
+        output = `<table class="table table-striped table-bordered" style="margin-left: auto; margin-right: auto;">
+                    <thead>
+                        <tr>
+                            <th>Status Key</th>
+                            <th>Status Meaning</th>
+                        </tr>
+                    </thead>`
+        
+        for (i in data){
+            output +=
+                "<tr><td>" +
+                data[i]["status"] + 
+                "</td><td>" +
+                data[i]["comment"] + 
+                "</td></tr>";
+        }
+
+        output += "</table>"
+        document.getElementById("checkStatus").innerHTML = output;
+    }
+}
+
 function checkRequests(){
     const xhttp = new XMLHttpRequest();
     const method = "GET";
@@ -183,15 +218,16 @@ function checkRequests(){
     xhttp.send();
     xhttp.onload = function(){
         const data = JSON.parse(this.responseText);
-        output = `<table class="table table-striped table-bordered">
+        output = `<table class="table table-striped table-bordered" style="max-width: 75%; margin-left: auto; margin-right: auto;">
                     <thead>
                         <tr>
-                            <th colspan="100%" style="background-color: royalblue;">Check Requests *UPDATE LATER*</th>
+                            <th colspan="100%" class="table-header">Requests</th>
                         </tr>
                     </thead>
                     <thead>
                         <tr>
                             <th>Request ID</th>
+                            <th>Customer ID</th>
                             <th>Customer</th>
                             <th>Animal ID</th>
                         </tr>
@@ -201,6 +237,8 @@ function checkRequests(){
             output +=
                 "<tr><td>" +
                 data[i]["request_id"] + 
+                "</td><td>" +
+                data[i]["customer_id"] + 
                 "</td><td>" +
                 data[i]["customer_name"] +
                 "</td><td>" +
@@ -223,7 +261,7 @@ function checkDonations(){
     xhttp.send();
     xhttp.onload = function(){
         const data = JSON.parse(this.responseText);
-        output = `<table class="table table-striped table-bordered">
+        output = `<table class="table table-striped table-bordered" style="max-width:80%; margin-left: auto; margin-right: auto;">
                     <thead>
                         <tr>
                             <th></th>

@@ -23,20 +23,63 @@
                     Welcome {{g.user}}
                 </div>
                 <button type="button" class="btn logout" >
-                    <span class="glyphicon glyphicon-log-out"></span> <a href="/my-link/">Logout</a> &nbsp;
+                    <span class="glyphicon glyphicon-log-out"></span> <a href="/my-link/" class="logout-text">Logout</a> &nbsp;
                 </button>
             <!-- </div> -->
         </nav>
 
+        <h2 class="section-title">Animal(s):</h4>
         <!-- Check/Update Animal -->
-        <div class="container-fluid">
-            <!-- View My Animals -->
+        <div class="container-fluid container-custom">
+            <!-- <div class="row"> -->
             <div id="myAnimals"></div>
-            <!-- Update Animal -->
+            <!-- Edit Animal -->
             <div class="row">
+                <div class="col-3"></div>
                 <div class="col-6">
-                    <!-- Adding new visit -->
-                    <table class="table table-striped table-bordered " style="border-radius: 5rem;">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="table-header" colspan="100%">Edit Animal Entry</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>
+                                <div class="row-fluid" style="padding-left: 0.67rem;">
+                                    <label>Animal ID: </label>
+                                    <input type="text" id="animalID_E" name="animalID_E">
+                                    <input type="submit" name = "fill" value="autofill" onclick="fill()">
+                                </div>
+                            </td>
+                            <tbody id="filledResults"></tbody>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-3"></div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Visit(s):</h2>
+        <div class="container-fluid container-custom">
+            <div id="checkRequests"></div>
+            <!-- <div class="row">
+                <div class="col-1"></div>
+                <div class="col-5">
+                    <div id="checkRequests"></div>
+                </div>
+                <div class="col-4">
+                    <div id="checkStatus"></div>
+                </div>
+                <div class="col-1"></div>
+            </div> -->
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-4">
+                    <div id="checkStatus"></div>
+                </div>
+                <!-- Adding new visit -->
+                <div class="col-4">
+                    <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th class="table-header" colspan="100%">New Visit</th>
@@ -80,43 +123,16 @@
                         </tr>
                         <tbody id="animalPass"></tbody>
                     </table>
-                    <!-- Adding new visit -->
                 </div>
-                <div class="col-6">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="table-header" colspan="100%">Edit Animal Entry</th>
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td>
-                                <div class="row-fluid" style="padding-left: 0.67rem;">
-                                    <label>Animal ID: </label>
-                                    <input type="text" id="animalID_E" name="animalID_E">
-                                    <input type="submit" name = "fill" value="fill" onclick="fill()">
-                                </div>
-                            </td>
-                            <tbody id="filledResults"></tbody>
-                        </tr>
-                    </table>
-                </div>
+                <div class="col-2"></div>
             </div>
         </div>
 
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Check Requests -->
-                <div class="col-6">
-                    <h4>Check Requests</h4>
-                    <div id="checkRequests"></div>
-                </div>
-                <!-- Donations -->
-                <div class="col-6">
-                    <h4>Check Donations</h4>
-                    <div id="checkDonations"></div>
-                </div>
-            </div>
+        <h2 class="section-title">Visit(s):</h2>
+        <div class="container-fluid container-custom">
+            <h4>Check Donations</h4>
+            <div id="checkDonations"></div>
         </div>
+        <div style="padding:2rem;"></div>
     </body>
 </html>
