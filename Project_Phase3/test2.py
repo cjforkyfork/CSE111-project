@@ -193,12 +193,36 @@ def addvisit():
         args = [auxVis, animalID, statusKey, assistant, visitComment]
         cursor.execute(insert, args)
 
-        query2 = '''
-        DELETE FROM requests_visits
-        WHERE customer_id = ?
-        '''
-        arg = [customerID]
-        cursor.execute(query2, arg)
+        if(statusKey == 5 or statusKey == 6):
+            del_query_animal = '''
+            DELETE FROM animal
+            WHERE animal_id = ?
+            '''
+            arg = [animalID]
+
+            cursor.execute(del_query_animal,arg)
+
+            del_query_assist = '''
+            DELETE FROM animals_assistant
+            WHERE animal_id = ?
+            '''
+
+            cursor.execute(del_query_assist,arg)
+
+            del_upcoming_requests = '''
+            DELETE FROM requests_visits
+            WHERE animal_id = ?
+            '''
+
+            cursor.execute(del_upcoming_requests,arg)
+
+        if(customerID != 'NULL'): 
+            query2 = '''
+            DELETE FROM requests_visits
+            WHERE customer_id = ?
+            '''
+            arg = [customerID]
+            cursor.execute(query2, arg)
 
         connection.commit()
         return ('', 204)
