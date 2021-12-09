@@ -48,3 +48,6 @@ WHERE assistant_id = '?')
 UPDATE animal
 SET animal.status_key = '?'
 WHERE animal.animal_id = '?'
+
+DELETE FROM requests_visits
+WHERE animal_id = 3

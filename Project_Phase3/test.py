@@ -37,21 +37,21 @@ def Q1(_conn):
     try:
 
         cursor = _conn.cursor()
-        query = '''
-        SELECT customer_id, customer_name
-        FROM customer 
-        WHERE customer_id = ?
+        query_stat = '''
+        SELECT status_key
+        FROM animal
+        WHERE animal_id = ?
         '''
-        c_key = str(11)
-        c_name = 'Jorge Brian Gonzalez	'
-        
-        args = [c_key]
 
-        cursor.execute(query,args)
+        arg_check = [4]
+        cursor.execute(query_stat,arg_check)
+        rows_check = cursor.fetchall()
+
+        cursor.execute(query_stat,arg_check)
         rows = cursor.fetchall()
-        rows2 = cursor.fetchone()
-        print(rows)
-        print(rows2)
+        
+        print(rows[0][0])
+        
         # if rows[0][0] == None and rows[0][1] == None:
         #         print('here')
         

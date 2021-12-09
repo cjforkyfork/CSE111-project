@@ -118,6 +118,7 @@ function overFive() {
 function requestVisit()
 {
   var animal_id = document.getElementById("Newname").value
+
   
   fetch("http://127.0.0.1:5000/student/requestVisit", {
     method: `POST`,
@@ -130,7 +131,33 @@ function requestVisit()
 .then(function (response) {
   if (response.status !== 200) {
     console.log(`Looks like there was a problem. Status code: ${response.status}`);
+    var table = document.getElementById("Addedbody");
+    var rowCount = document.getElementById("Addedbody").rows.length;
+    if (rowCount == 0 ){}
+    else{
+      var Table = document.getElementById("Addedbody");
+      Table.innerHTML = "";
+      console.log('')
+    }
+    var row = `<tr>
+                            <td>The animal you requested is currently not available for visits please check its current status for reasoning.</td>
+                      </tr>`;
+        table.innerHTML += row;
     return;
+  }
+  else
+  {
+    var table = document.getElementById("Addedbody");
+    var rowCount = document.getElementById("Addedbody").rows.length;
+    if (rowCount == 0 ){}
+    else{
+      var Table = document.getElementById("Addedbody");
+      Table.innerHTML = "";
+    }
+    var row = `<tr>
+                            <td>Successfully Requested.</td>
+                      </tr>`;
+        table.innerHTML += row;
   }
   response.json().then(function (data) {
     console.log(data);

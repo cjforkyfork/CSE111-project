@@ -42,6 +42,7 @@ def out(name):
 @app.route("/student/requestVisit",methods = ["POST"])
 def get():
     if request.method == "POST":
+        
         connection = sqlite3.connect(currentdirectory + "/animals.db")
         cursor = connection.cursor()
         query = '''
@@ -59,6 +60,23 @@ def get():
         an_id = int(req["animal_id"])
         cust_id = str(session['user_id'])
 
+        # check if its available
+        query_stat = '''
+        SELECT status_key
+        FROM animal
+        WHERE animal_id = ?
+        '''
+
+        arg_check = [an_id]
+        cursor.execute(query_stat,arg_check)
+        rows_check = cursor.fetchall()
+        check = int(rows_check[0][0])
+        print('printing CHECK')
+        print(check)
+        if(check == 4):
+            return ('', 204)
+        if (check == 3):
+            return ('', 204)
         query_request = '''
         INSERT INTO requests_visits VALUES(?,?,?);
         '''
@@ -66,7 +84,7 @@ def get():
 
         cursor.execute(query_request,args)
         connection.commit()
-        return ('', 204)
+        return ('', 200)
         
 @app.route("/customer/makeDonation",methods = ["POST"])
 def donate():
