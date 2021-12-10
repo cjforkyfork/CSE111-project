@@ -61,3 +61,6 @@ SET animal_breed = 'Domestic Shorthair Mix',
     status_key = '6',
     date_enrolled = DATE('2021-03-15')
 WHERE animal_id = 7
+
+DELETE FROM requests_visits
+WHERE request_id = 5
