@@ -45,9 +45,51 @@ AND animal_id IN
 FROM animals_assistant
 WHERE assistant_id = '?')
 
-UPDATE animal
-SET animal.status_key = '?'
-WHERE animal.animal_id = '?'
+UPDATE donations
+SET shelter_key = '1'
+WHERE customer_id = 'E'
 
 DELETE FROM requests_visits
-WHERE animal_id = 3
+WHERE animal_id = 4
+
+SELECT animal_id,animal_type,animal_breed,animal_dob,animal.shelter_key,arrival_cause,status_key,date_enrolled
+FROM animal,customer,shelter
+WHERE customer_id = 'A'
+AND customer.city_key = shelter.city_key
+AND animal.shelter_key = shelter.shelter_key
+AND animal_type = 'Dog';
+
+SELECT animal_id,animal_type,animal_breed,animal_dob,animal.shelter_key,arrival_cause,status_key,date_enrolled
+FROM animal,customer,shelter
+WHERE customer_id = 'B'
+AND customer.city_key = shelter.city_key
+AND animal.shelter_key = shelter.shelter_key
+AND animal_type = 'Dog';
+
+SELECT animal_id,animal_type,animal_breed,animal_dob,animal.shelter_key,arrival_cause,status_key,date_enrolled
+FROM animal,customer,shelter
+WHERE customer_id = 'C'
+AND customer.city_key = shelter.city_key
+AND animal.shelter_key = shelter.shelter_key
+AND animal_type = 'Dog';
+
+SELECT animal_id,animal_type,animal_breed,animal_dob,animal.shelter_key,arrival_cause,status_key,date_enrolled
+FROM animal,customer,shelter
+WHERE customer_id = 'D'
+AND customer.city_key = shelter.city_key
+AND animal.shelter_key = shelter.shelter_key
+AND animal_type = 'Dog';
+
+SELECT animal_id,animal_type,animal_breed,animal_dob,animal.shelter_key,arrival_cause,status_key,date_enrolled
+FROM animal,customer,shelter
+WHERE customer_id = 'E'
+AND customer.city_key = shelter.city_key
+AND animal.shelter_key = shelter.shelter_key
+AND animal_type = 'Dog';
+
+SELECT animal_id,animal_type,animal_breed,animal_dob,animal.shelter_key,arrival_cause,status_key,date_enrolled
+FROM animal,customer,shelter
+WHERE customer_id = 'Y'
+AND customer.city_key = shelter.city_key
+AND animal.shelter_key = shelter.shelter_key
+AND animal_type = 'Dog';

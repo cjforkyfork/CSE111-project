@@ -386,6 +386,7 @@ def checkdonations():
             INNER JOIN customer ON customer.customer_id = donations.customer_id
             INNER JOIN shelter_assistant ON shelter_assistant.shelter_key = donations.shelter_key
         WHERE assistant_id = ?
+        GROUP BY customer_name
         '''
         arg = session['user_id']
 

@@ -227,8 +227,8 @@ function checkRequests(){
                     <thead>
                         <tr>
                             <th>Request ID</th>
-                            <th>Customer ID</th>
-                            <th>Customer</th>
+                            <th>Member ID</th>
+                            <th>Member Name</th>
                             <th>Animal ID</th>
                         </tr>
                     </thead>`
@@ -264,8 +264,7 @@ function checkDonations(){
         output = `<table class="table table-striped table-bordered" style="max-width:80%; margin-left: auto; margin-right: auto;">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Customer</th>
+                            <th>Member Name</th>
                             <th>Donated Amount</th>
                         </tr>
                     </thead>`
@@ -273,8 +272,6 @@ function checkDonations(){
         for (i in data){
             output +=
                 "<tr><td>" +
-                data[i]["count"] +
-                "</td><td>" +
                 data[i]["customer_name"] +
                 "</td><td>" +
                 data[i]["money"] +
